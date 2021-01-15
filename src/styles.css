@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+.myapp-no-padding-dialog .mat-dialog-container {
+  padding: 0;
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #0ac5a8;
+}
+:host ::ng-deep .custom-spinner circle{
+  stroke: #0ac5a8;
+}

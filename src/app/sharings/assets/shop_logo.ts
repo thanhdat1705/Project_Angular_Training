@@ -1,0 +1,11 @@
+export const ShineLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/30shine-logo.png";
+export const FourRauLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/4rau_barber_logo.jpg";
+export const AimShaverLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/aim_shaver_barber_logo.png";
+export const BarberLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/barber_logo.jpg";
+export const BiTiLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/bi%26ti_barber_logo.png";
+export const GudLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/gud_barber_logo.png";
+export const GentlemanLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/gentleman_barber_logo.jpg";
+export const LongLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/long_barber_logo.png";
+export const SkyBarberLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/sky_barber_logo.png";
+export const VintageLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/vintage_barber_logo.png";
+export const WhitefishLogo = "https://raw.githubusercontent.com/sonhoang1809/Assets/master/Images/Project_Hair_Time/Logo_Stores/whitefist_barber_logo.jpg";
