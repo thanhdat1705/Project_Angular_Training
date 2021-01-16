@@ -25,8 +25,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MaterialModule } from '../sharings/material/material.module';
+import { LoginComponent } from '../pages/login/login.component';
 // import { BarChartModule } from '../sharings/modules/charts/bar-chart/bar-chart.module';
 // import { LineChartModule } from '../sharings/modules/charts/line-chart/line-chart.module';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import {NzMenuModule} from 'ng-zorro-antd/menu';
+import {NzBreadCrumbModule} from 'ng-zorro-antd/breadcrumb';
 
 
 export const IMPORTS = [
@@ -53,6 +58,10 @@ export const IMPORTS = [
   MatExpansionModule,
   MatSnackBarModule,
   BrowserAnimationsModule,
+  NzGridModule,
+  NzLayoutModule,
+  NzMenuModule,
+  NzBreadCrumbModule,
   //BarChartModule,
   //LineChartModule,
   ROUTER,
