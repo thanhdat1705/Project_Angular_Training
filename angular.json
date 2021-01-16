@@ -27,9 +27,11 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/theme.less",
+            "styles": [                           
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
+              "node_modules/ng-zorro-antd/resizable/style/index.min.css", 
+              "src/theme.less",
               "src/styles.css"
             ],
             "scripts": []
@@ -126,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "SampleAngularProject"
+  "defaultProject": "SampleAngularProject",
+  "cli": {
+    "analytics": false
+  }
 }
