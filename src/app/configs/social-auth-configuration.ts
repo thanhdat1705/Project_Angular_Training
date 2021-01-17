@@ -7,13 +7,13 @@ export function socialAuthConfig(): SocialAuthService{
       providers: [
         {
           id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('856874909598-c0u77u1i5td8qap97k4f9q8954fqvv9p.apps.googleusercontent.com', {
+          provider: new GoogleLoginProvider('919491659014-03oqve4tlpoej91k3lce4a4006lic3gu.apps.googleusercontent.com', {
             scope: 'profile email'
           })
         },
         {
           id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider('373017660549234', {
+          provider: new FacebookLoginProvider('365245134862654', {
             cookie: true,
             xfbml: true,
             scope: 'public_profile,email',
