@@ -1,10 +1,6 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="https://ng.ant.design/" target="_blank">
         <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
@@ -43,6 +39,7 @@
           </li>
         </ul>
       </li>
+<<<<<<< HEAD
       <li nz-submenu nzOpen nzTitle="Order management" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
@@ -57,6 +54,12 @@
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a>investment management</a>
+=======
+      <li nz-submenu nzOpen nzTitle="Quản lý chi phí " nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]="['/costs']">Danh sách chi phí</a>
+>>>>>>> thanhdat
           </li>
         </ul>
       </li>
@@ -66,10 +69,7 @@
     <nz-header>
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <!-- <i class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i> -->
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
         </span>
       </div>
     </nz-header>

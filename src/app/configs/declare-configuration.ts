@@ -6,6 +6,9 @@ import { MessageComponent } from '../sharings/components/message/message.compone
 import { WaitingComponent } from '../sharings/components/waiting/waiting.component';
 import { AppComponent } from './../app.component';
 import { LoginComponent } from '../pages/login/login.component';
+import { LeftSidebarComponent } from '../pages/main-action/left-sidebar/left-sidebar.component';
+import { PageHeaderContentComponent } from '../pages/page-header-content/page-header-content.component';
+import { ManageCostsComponent } from '../pages/main-action/manage-costs/manage-costs.component';
 
 export const DECLARATIONS = [
   AppComponent,
@@ -15,5 +18,8 @@ export const DECLARATIONS = [
   VerifyActionComponent,
   ErrorNotFoundComponent,
   LoginComponent,
-  MainActionComponent
+  MainActionComponent,
+  LeftSidebarComponent,
+  PageHeaderContentComponent,
+  ManageCostsComponent,
 ];

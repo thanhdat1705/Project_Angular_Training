@@ -4,11 +4,13 @@ import { LeftSidebarComponent } from '../pages/main-action/left-sidebar/left-sid
 import { ErrorNotFoundComponent } from '../pages/error-not-found/error-not-found.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { MainActionComponent } from '../pages/main-action/main-action.component';
+import { ManageCostsComponent } from '../pages/main-action/manage-costs/manage-costs.component';
 
 
 export const ROUTER = RouterModule.forRoot([
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
+<<<<<<< HEAD
   { path: 'main', component: MainActionComponent,
     data: {breadcrumb : 'Main'},
     children: [
@@ -72,6 +74,10 @@ export const ROUTER = RouterModule.forRoot([
 
     ]
    },
+=======
+  { path: 'main', component: MainActionComponent },
+  { path: 'costs', component: ManageCostsComponent },
+>>>>>>> thanhdat
   { path: '**', redirectTo: '404' },
   { path: '404', component: ErrorNotFoundComponent },
   // {
