@@ -76,16 +76,16 @@ export class AuthService {
   // }
 
   signInWithGoogle() {
-    // this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
-    //   (response) => {
-    //     this.user = response;
-    //     this.login();
-    //   }
-    // ).catch(
-    //   (error) => {
-    //     this.generalService.handleError(error);
-    //   }
-    // );
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
+      (response) => {
+        this.user = response;
+        this.login();
+      }
+    ).catch(
+      (error) => {
+        this.generalService.handleError(error);
+      }
+    );
   }
   signInWithFacebook() {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
