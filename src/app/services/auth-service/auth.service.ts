@@ -21,9 +21,10 @@ export class AuthService {
   isLoginUser: boolean = false;
 
   loginSocialRequest: LoginSocialRequest = {
-    accessToken: null,
-    provider: 0,
-    tokenSecret: null
+    provider: 0,  
+    token: null,
+    tokenSecret: null,
+      
   };
 
   constructor(private socialAuthService: SocialAuthService, private router: Router,
@@ -75,22 +76,21 @@ export class AuthService {
   // }
 
   signInWithGoogle() {
-    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
-      (response) => {
-        this.user = response;
-        this.login();
-      }
-    ).catch(
-      (error) => {
-        this.generalService.handleError(error);
-      }
-    );
+    // this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
+    //   (response) => {
+    //     this.user = response;
+    //     this.login();
+    //   }
+    // ).catch(
+    //   (error) => {
+    //     this.generalService.handleError(error);
+    //   }
+    // );
   }
   signInWithFacebook() {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
-        this.user = response;
-        console.log(response);
+        this.user = response;        
         this.login();
       }
     ).catch(
@@ -111,7 +111,7 @@ export class AuthService {
       token: this.user.authToken,
       role: 'ADMIN'
     };
-    this.storage.storage.set("UserAccount", this.account);
+    // this.storage.storage.set("UserAccount", this.account);    
     setTimeout(
       () => {
         this.generalService.closeWaitingPopup();
@@ -119,31 +119,34 @@ export class AuthService {
       1000
     );
     this.router.navigate(['main']);
-    // this.loginSocialRequest.accessToken = this.user.authToken;
-    // if (this.user.provider == "GOOGLE") {
-    //   this.loginSocialRequest.provider = 1;
-    // } else if (this.user.provider == "FACEBOOK") {
-    //   this.loginSocialRequest.provider = 0;
-    // }
+    
+    if (this.user.provider == "GOOGLE") {
+      this.loginSocialRequest.provider = 1;
+    } else if (this.user.provider == "FACEBOOK") {
+      this.loginSocialRequest.provider = 0;
+    }
+    this.loginSocialRequest.token = this.user.authToken;
+    console.log(this.loginSocialRequest);
     // //login to system
-    // this.summaryService.loginSocial(this.loginSocialRequest).subscribe(
-    //   (response) => {
-    //     //console.log(response);
-    //     this.setAccount(response.data);
-    //     this.account.id = response.data.accountId;
-    //     //console.log(this.account);
-    //     localStorage.setItem("accountId", response.data.accountId);
-    //     localStorage.setItem("token", response.data.token);
-    //     console.log(localStorage.getItem("token"));
-    //     this.summaryService.setTokenHeader();
-    //     this.generalService.closeWaitingPopup();
-    //     this.router.navigate(['main']);
-    //   },
-    //   (error) => {
-    //     this.generalService.closeWaitingPopup();
-    //     this.generalService.handleError(error);
-    //   }
-    // );
+    
+    this.summaryService.loginSocial(this.loginSocialRequest).subscribe(
+      (response) => {
+        //console.log(response);
+        this.setAccount(response.data);
+        this.account.id = response.data.accountId;
+        //console.log(this.account);
+        localStorage.setItem("accountId", response.data.accountId);
+        localStorage.setItem("token", response.data.token);
+        console.log(localStorage.getItem("token"));
+        this.summaryService.setTokenHeader();
+        this.generalService.closeWaitingPopup();
+        this.router.navigate(['main']);
+      },
+      (error) => {
+        this.generalService.closeWaitingPopup();
+        this.generalService.handleError(error);
+      }
+    );
   }
 
 }

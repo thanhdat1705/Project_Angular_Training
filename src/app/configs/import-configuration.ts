@@ -37,7 +37,7 @@ import { IconsProviderModule } from '../icons-provider.module';
 export const IMPORTS = [
   BrowserModule,
   HttpClientModule,
-  SocialLoginModule,
+  SocialLoginModule,  
   ReactiveFormsModule,
   BrowserAnimationsModule,
   BrowserAnimationsModule,

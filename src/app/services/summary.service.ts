@@ -18,6 +18,7 @@ export class SummaryService {
   constructor(private http: HttpClient, private router: Router) { }
 
   public loginSocial(data: any): Observable<ResponseServer> {
+    console.log(data);
     return this.http.post<ResponseServer>(UrlServerAPIAccountLoginSocial, data);
   }
 
