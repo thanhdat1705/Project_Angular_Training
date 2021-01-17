@@ -90,8 +90,7 @@ export class AuthService {
   signInWithFacebook() {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
-        this.user = response;  
-        console.log(response);
+        this.user = response;        
         this.login();
       }
     ).catch(
@@ -121,20 +120,16 @@ export class AuthService {
     );
     this.router.navigate(['main']);
     
-    // if (this.user.provider == "GOOGLE") {
-    //   this.loginSocialRequest.provider = 1;
-    // } else if (this.user.provider == "FACEBOOK") {
-    //   this.loginSocialRequest.provider = 0;
-    // }
-    // this.loginSocialRequest.token = this.user.authToken;
-    // console.log(this.loginSocialRequest);
+    if (this.user.provider == "GOOGLE") {
+      this.loginSocialRequest.provider = 1;
+    } else if (this.user.provider == "FACEBOOK") {
+      this.loginSocialRequest.provider = 0;
+    }
+    this.loginSocialRequest.token = this.user.authToken;
+    console.log(this.loginSocialRequest);
     // //login to system
     
-    this.summaryService.loginSocial({
-      token: this.user.authToken,
-    tokenSecret: null,
-    provider: 0
-    }).subscribe(
+    this.summaryService.loginSocial(this.loginSocialRequest).subscribe(
       (response) => {
         //console.log(response);
         this.setAccount(response.data);
