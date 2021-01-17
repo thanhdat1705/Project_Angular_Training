@@ -322,7 +322,7 @@ export class SummaryService {
 
   public setTokenHeader() {
     this.headers = this.headers.set('Authorization', 'Bearer ' + localStorage.getItem("token"));
-    //console.log(localStorage.getItem("token"));
+    console.log(localStorage.getItem("token"));
   }
 
   private headers: HttpHeaders = new HttpHeaders({
