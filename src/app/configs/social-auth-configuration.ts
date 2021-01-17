@@ -5,15 +5,15 @@ export function socialAuthConfig(): SocialAuthService{
     {
       autoLogin: false,
       providers: [
-        {
-          id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('856874909598-c0u77u1i5td8qap97k4f9q8954fqvv9p.apps.googleusercontent.com', {
-            scope: 'profile email'
-          })
-        },
+        // {
+        //   id: GoogleLoginProvider.PROVIDER_ID,
+        //   provider: new GoogleLoginProvider('856874909598-c0u77u1i5td8qap97k4f9q8954fqvv9p.apps.googleusercontent.com', {
+        //     scope: 'profile email'
+        //   })
+        // },
         {
           id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider('373017660549234', {
+          provider: new FacebookLoginProvider('263419928545997', {
             cookie: true,
             xfbml: true,
             scope: 'public_profile,email',

@@ -5,6 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class GeneralStorage{
     public storage: Map<string,object> = new Map<string,object>();
-    constructor(){}
+    constructor(){
+        console.log(this.storage);
+    }
+    
     
 }

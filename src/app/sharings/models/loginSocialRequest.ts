@@ -1,6 +1,5 @@
 export interface LoginSocialRequest{
-    accessToken: any;
+    token: any;
     tokenSecret: any;
     provider: number;
-
 }
