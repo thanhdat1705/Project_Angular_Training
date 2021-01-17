@@ -15,7 +15,7 @@
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
+            <a>Product</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a>Monitor</a>
@@ -46,6 +46,16 @@
       </div>
     </nz-header>
     <nz-content>
+    <div class="breadsrcumb">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          Darshboard
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          Product
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
+    </div>
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
