@@ -14,7 +14,6 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class SummaryService {
 
-
   constructor(private http: HttpClient, private router: Router) { }
 
   public loginSocial(data: any): Observable<ResponseServer> {

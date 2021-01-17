@@ -9,7 +9,86 @@ import { MainActionComponent } from '../pages/main-action/main-action.component'
 export const ROUTER = RouterModule.forRoot([
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
-  { path: 'main', component: MainActionComponent },
+  { path: 'main', component: MainActionComponent,
+    data: {breadcrumb : 'Main'},
+    children: [
+      {
+        path: 'ecommerce',
+        data: {
+          breadcrumb: 'E-Commerce'
+        },
+        children: [
+          {
+            path: 'ecommerce-dashboard',
+            component: ErrorNotFoundComponent,
+            data: {
+              breadcrumb: 'E-Commerce Dashboard'
+            }
+          }
+        ]
+      },{
+        path: 'product-management',
+        data: {
+          breadcrumb: 'Product Management'
+        },
+        children: [
+          {
+            path: 'product-list',
+            component: ErrorNotFoundComponent,
+            data: {
+              breadcrumb: 'Product list'
+            }
+          },
+          {
+            path: 'category-list',
+            component: ErrorNotFoundComponent,
+            data: {
+              breadcrumb: 'Category list'
+            }
+          }
+        ]
+      },{
+        path: 'cost-management',
+        data: {
+          breadcrumb: 'Cost Management'
+        },
+        children: [
+          {
+            path: 'cost-list',
+            component: ErrorNotFoundComponent,
+            data: {
+              breadcrumb: 'Cost list'
+            }
+          },
+          {
+            path: 'cost-type-list',
+            component: ErrorNotFoundComponent,
+            data: {
+              breadcrumb: 'Cost Type list'
+            }
+          }
+        ]
+      },
+
+    ]
+   },
   { path: '**', redirectTo: '404' },
   { path: '404', component: ErrorNotFoundComponent },
+  // {
+  //   path: 'dashboard',
+  //   component: MainActionComponent,
+  //   data: {
+  //     breadcrumb: 'Dashboard'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'product',
+  //       component: LoginComponent,
+  //       data: {
+  //         breadcrumb: 'Product'
+  //       }
+  //     }
+  //   ]
+  // }
+
 ]);
