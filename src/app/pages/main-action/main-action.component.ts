@@ -9,6 +9,7 @@ export class MainActionComponent implements OnInit {
   title = 'SampleAngularProject';
   constructor() { }
 
+  isCollapsed = false;
   ngOnInit() {
   }
 
