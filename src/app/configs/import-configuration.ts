@@ -66,6 +66,7 @@ export const IMPORTS = [
   NzTableModule,
   //BarChartModule,
   //LineChartModule,
+  NzTableModule,
   ROUTER,
 ];
 
