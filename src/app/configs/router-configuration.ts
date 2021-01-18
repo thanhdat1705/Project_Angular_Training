@@ -10,7 +10,6 @@ import { ManageCostsComponent } from '../pages/main-action/manage-costs/manage-c
 export const ROUTER = RouterModule.forRoot([
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
-<<<<<<< HEAD
   { path: 'main', component: MainActionComponent,
     data: {breadcrumb : 'Main'},
     children: [
@@ -74,10 +73,8 @@ export const ROUTER = RouterModule.forRoot([
 
     ]
    },
-=======
   { path: 'main', component: MainActionComponent },
   { path: 'costs', component: ManageCostsComponent },
->>>>>>> thanhdat
   { path: '**', redirectTo: '404' },
   { path: '404', component: ErrorNotFoundComponent },
   // {

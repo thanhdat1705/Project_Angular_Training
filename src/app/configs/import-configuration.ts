@@ -32,6 +32,7 @@ import {NzMenuModule} from 'ng-zorro-antd/menu';
 import {NzBreadCrumbModule} from 'ng-zorro-antd/breadcrumb';
 import { SocialLoginModule } from 'angularx-social-login';
 import { IconsProviderModule } from '../icons-provider.module';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 
 export const IMPORTS = [
@@ -65,6 +66,7 @@ export const IMPORTS = [
   IconsProviderModule,
   //BarChartModule,
   //LineChartModule,
+  NzTableModule,
   ROUTER,
 ];
 
