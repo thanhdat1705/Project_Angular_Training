@@ -53,10 +53,13 @@
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a>investment management</a>
-      <li nz-submenu nzOpen nzTitle="Quản lý chi phí " nzIcon="form">
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Cost management" nzIcon="form">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/costs']">Danh sách chi phí</a>
+            <a [routerLink]="['/costs']">costs list</a>
           </li>
         </ul>
       </li>
@@ -71,9 +74,9 @@
       </div>
     </nz-header>
     <nz-content>
-    <div class="breadsrcumb">
-      <nz-breadcrumb [nzAutoGenerate]="true"></nz-breadcrumb>
-    </div>
+      <div class="breadsrcumb">
+        <nz-breadcrumb [nzAutoGenerate]="true"></nz-breadcrumb>
+      </div>
       <div class="inner-content">
         <router-outlet></router-outlet>
       </div>
