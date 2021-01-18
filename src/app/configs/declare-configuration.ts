@@ -7,6 +7,9 @@ import { WaitingComponent } from '../sharings/components/waiting/waiting.compone
 import { AppComponent } from './../app.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { CategoryComponent } from '../pages/main-action/category/category.component';
+import { LeftSidebarComponent } from '../pages/main-action/left-sidebar/left-sidebar.component';
+import { PageHeaderContentComponent } from '../pages/page-header-content/page-header-content.component';
+import { ManageCostsComponent } from '../pages/main-action/manage-costs/manage-costs.component';
 
 export const DECLARATIONS = [
   AppComponent,
@@ -17,5 +20,8 @@ export const DECLARATIONS = [
   ErrorNotFoundComponent,
   LoginComponent,
   MainActionComponent,
-  CategoryComponent
+  CategoryComponent,
+  LeftSidebarComponent,
+  PageHeaderContentComponent,
+  ManageCostsComponent,
 ];
