@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Category } from 'src/app/sharings/models/category';
 
 @Component({
@@ -8,11 +10,23 @@ import { Category } from 'src/app/sharings/models/category';
 })
 export class CategoryComponent implements OnInit {
 
-  constructor() { }
+    cateList : Category[] = [];
 
-  cateList : Category[] = [];
+
+  getTopProductFromCategory(): Observable<Category[]> {
+    return this.http.get<Category[]>('https://managesachfruits-backend.herokuapp.com/api/Categories');
+  }
+
+  constructor(private http: HttpClient) {
+
+  }
+
 
   ngOnInit(): void {
+    this.getTopProductFromCategory().subscribe((resp: Category[]) => {
+      console.log(resp);
+      this.cateList = resp;
+    });
   }
 
 

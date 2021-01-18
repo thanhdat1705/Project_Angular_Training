@@ -4,7 +4,7 @@ import { LeftSidebarComponent } from '../pages/main-action/left-sidebar/left-sid
 import { ErrorNotFoundComponent } from '../pages/error-not-found/error-not-found.component';
 import { LoginComponent } from '../pages/login/login.component';
 import { MainActionComponent } from '../pages/main-action/main-action.component';
-
+import { CategoryComponent } from '../pages/main-action/category/category.component';
 
 export const ROUTER = RouterModule.forRoot([
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -41,7 +41,7 @@ export const ROUTER = RouterModule.forRoot([
           },
           {
             path: 'category-list',
-            component: ErrorNotFoundComponent,
+            component: CategoryComponent,
             data: {
               breadcrumb: 'Category list'
             }
