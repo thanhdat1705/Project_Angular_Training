@@ -7,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainActionComponent implements OnInit {
   title = 'SampleAngularProject';
+  titleComponent: string = "";
   constructor() { }
 
   isCollapsed = false;
   ngOnInit() {
+
   }
 
+  test(a: any){
+    this.titleComponent = a;
+  }
 }

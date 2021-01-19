@@ -56,13 +56,6 @@
           </li>
         </ul>
       </li>
-      <li nz-submenu nzOpen nzTitle="Quản lý chi phí " nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a [routerLink]="['/costs']">Danh sách chi phí</a>
-          </li>
-        </ul>
-      </li>
     </ul>
   </nz-sider>
   <nz-layout>
@@ -70,7 +63,10 @@
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
           <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+          {{titleComponent}}
         </span>
+        <!-- <p (abccccdss)="titleComponent">{{titleComponent}}</p> -->
+        
       </div>
     </nz-header>
     <nz-content>
@@ -78,7 +74,8 @@
         <nz-breadcrumb [nzAutoGenerate]="true"></nz-breadcrumb>
       </div>
       <div class="inner-content">
-        <router-outlet></router-outlet>
+        <router-outlet (abccccdss)="test($event)"></router-outlet>
+        <!-- <app-manage-costs (abccccdss)="test($event)"></app-manage-costs> -->
       </div>
     </nz-content>
   </nz-layout>

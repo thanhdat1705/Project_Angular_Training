@@ -57,7 +57,7 @@ export const ROUTER = RouterModule.forRoot([
         children: [
           {
             path: 'cost-list',
-            component: ErrorNotFoundComponent,
+            component: ManageCostsComponent,
             data: {
               breadcrumb: 'Cost list'
             }

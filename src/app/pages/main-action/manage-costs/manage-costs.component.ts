@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Key } from 'protractor';
 
 @Component({
   selector: 'app-manage-costs',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageCostsComponent implements OnInit {
   titleComponent: string = 'Quản lý danh sách chi phí';
+  @Output() abccccdss = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
+    this.abccccdss.emit(this.titleComponent);
   }
 
+  getTitleComponent(): void {
+    
+  }
 }
