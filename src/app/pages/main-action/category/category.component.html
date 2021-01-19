@@ -1,22 +1,22 @@
-
-<!-- <nz-table #basicTable [nzData]="cateList">
+<nz-table #basicTable [nzData]="cateList" [nzLoading]="loading" [nzFrontPagination]="false" [nzTotal]="total"
+  [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" [nzShowSizeChanger]= true>
   <thead>
     <tr>
       <th>Name</th>
-      <th>Age</th>
-      <th>Address</th>
+      <th>Day created </th>
       <th>Action</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of cateList">
-      <td>{{data.categoryName}}</td>
-      <td>{{data.createAt}}</td>
-      <td>{{data.id}}</td>
+      <td>{{ data.categoryName }}</td>
+      <td>{{ data.createAt.day}}-{{ data.createAt.month}}-{{ data.createAt.year}}
+        {{ data.createAt.hour}}:{{ data.createAt.minute}}:{{ data.createAt.second}}</td>
+      <td><button nz-button nzType="default">Detail</button></td>
       <td>
-        <a>Action 一 {{data.updateAt}}</a>
         <a>Delete</a>
       </td>
     </tr>
   </tbody>
-</nz-table> -->
+</nz-table>
