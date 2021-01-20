@@ -1,0 +1,26 @@
+[nz-button] {
+    margin: 10px;
+    font-weight: 500;
+    box-shadow: 1px 1px 2px #cccccc;
+}
+
+nz-input-number {
+    width: 150px;
+}
+
+nz-select {
+    margin-left: 20px;
+}
+
+
+/* 
+textarea:focus::placeholder {
+    color: red;
+    font-size: 10px;
+} */
+
+
+/* nz-input-number:focus::nzPlaceHolder {
+    color: red;
+    font-size: 10px;
+} */

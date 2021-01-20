@@ -7,15 +7,15 @@ export interface SearchRequest {
     //1: descending
     //0: ascending
 }
-export interface SearchCostRequest{
+export interface SearchCostRequest {
     limit: number;
     page: number;
     search: string;
-    sortField: string;
-    sortOrder: number;
-    costTypeIds: string[];
+    sortField?: string ;
+    sortOrder?: number ;
+    costTypeIds?: string[];
 }
-export interface SearchOrderRequest{
+export interface SearchOrderRequest {
     limit: number;
     page: number;
     search: string;

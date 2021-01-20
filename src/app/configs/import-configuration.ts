@@ -28,11 +28,17 @@ import { MaterialModule } from '../sharings/material/material.module';
 // import { LineChartModule } from '../sharings/modules/charts/line-chart/line-chart.module';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import {NzMenuModule} from 'ng-zorro-antd/menu';
-import {NzBreadCrumbModule} from 'ng-zorro-antd/breadcrumb';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { SocialLoginModule } from 'angularx-social-login';
 import { IconsProviderModule } from '../icons-provider.module';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 export const IMPORTS = [
   BrowserModule,
@@ -67,6 +73,12 @@ export const IMPORTS = [
   //BarChartModule,
   //LineChartModule,
   NzTableModule,
+  NzButtonModule,
+  NzModalModule,
+  NzInputModule,
+  NzFormModule,
+  NzInputNumberModule,
+  NzSelectModule,
   ROUTER,
 ];
 

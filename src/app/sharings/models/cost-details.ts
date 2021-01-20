@@ -1,16 +1,17 @@
 import { DateTime } from './date-time';
-export interface Cost{
+export interface Cost {
     id: string;
     costDescription: string;
     total: number;
     costTypeId: number;
     createAt: DateTime;
 }
-export interface CostType{
+
+export interface CostType {
     id: number;
     costTypeName: string;
 }
-export interface CostTypeDetails{
+export interface CostTypeDetails {
     id: number;
     costTypeName: string;
     total: number;
