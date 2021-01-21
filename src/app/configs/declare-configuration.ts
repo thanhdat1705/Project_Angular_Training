@@ -6,6 +6,9 @@ import { MessageComponent } from '../sharings/components/message/message.compone
 import { WaitingComponent } from '../sharings/components/waiting/waiting.component';
 import { AppComponent } from './../app.component';
 import { LoginComponent } from '../pages/login/login.component';
+import { ProductManagerComponent } from '../pages/main-action/product-manager/product-manager.component';
+import { ProductDetailComponent } from '../pages/main-action/product-manager/product-detail/product-detail.component';
+
 
 export const DECLARATIONS = [
   AppComponent,
@@ -15,5 +18,7 @@ export const DECLARATIONS = [
   VerifyActionComponent,
   ErrorNotFoundComponent,
   LoginComponent,
-  MainActionComponent
+  MainActionComponent,
+  ProductManagerComponent,
+  ProductDetailComponent
 ];

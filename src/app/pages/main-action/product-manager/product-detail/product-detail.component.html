@@ -1,0 +1,51 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-input-group>
+        <nz-form-item>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+                <input nz-input formControlName="name" id="email" placeholder="Tên sản phẩm" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please input website!">
+                <textarea nz-input id="description" placeholder="Mô tả"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+                <input nz-input formControlName="name" class="inputInline" type="number" id="email"
+                    placeholder="Số lượng nhập" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+                <input nz-input formControlName="name" class="inputInline" type="number" id="email"
+                    placeholder="Số lượng nhập" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+                <input nz-input formControlName="name" class="inputInline" type="number" id="email"
+                    placeholder="Số lượng nhập" />
+            </nz-form-control>
+        </nz-form-item>
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+            <nz-option *ngFor="let cate of categories" nzLabel="{{cate.categoryName}}" nzValue="{{cate.id}}">
+            </nz-option>
+        </nz-select>
+        <nz-form-item nz-row class="register-area">
+            <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                <label nz-checkbox formControlName="agree">
+                    <span>
+                        I have read the
+                        <a>agreement</a>
+                    </span>
+                </label>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item nz-row class="register-area">
+            <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                <button nz-button nzType="primary">Thêm sản phẩm</button>
+            </nz-form-control>
+        </nz-form-item>
+    </nz-input-group>
+</form>

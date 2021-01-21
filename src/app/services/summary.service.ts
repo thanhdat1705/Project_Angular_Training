@@ -14,7 +14,6 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class SummaryService {
 
-
   constructor(private http: HttpClient, private router: Router) { }
 
   public loginSocial(data: any): Observable<ResponseServer> {
@@ -151,17 +150,11 @@ export class SummaryService {
 
   public getAllCategories(): Observable<ResponseServer> {
     //const headers = { 'Authorization': 'Bearer my-token' };
-    if (this.headers.get("Authorization") == null) {
-      this.router.navigate(['login']);
-    }
     return this.http.get<ResponseServer>(UrlServerAPIGetAllCategory, { headers: this.headers });
   }
 
   public getAllUnits(): Observable<ResponseServer> {
     //const headers = { 'Authorization': 'Bearer my-token' };
-    if (this.headers.get("Authorization") == null) {
-      this.router.navigate(['login']);
-    }
     return this.http.get<ResponseServer>(UrlServerAPIGetAllUnits, { headers: this.headers });
   }
 
@@ -197,10 +190,11 @@ export class SummaryService {
   }
 
   public searchProduct(searchRequest: SearchProductRequest): Observable<ResponseServer> {
-    const headers = { 'Authorization': 'Bearer my-token' };
-    if (this.headers.get("Authorization") == null) {
-      this.router.navigate(['login']);
-    }
+    // const headers = { 'Authorization': 'Bearer my-token' };
+    // if (this.headers.get("Authorization") == null) {
+    //   console.log("deo");
+    //   this.router.navigate(['login']);
+    // }
     return this.http.post<ResponseServer>(UrlServerAPISearchProduct, searchRequest, { headers: this.headers });
   }
 
@@ -215,6 +209,8 @@ export class SummaryService {
   public searchInvest(searchRequest: any): Observable<ResponseServer> {
     const headers = { 'Authorization': 'Bearer my-token' };
     if (this.headers.get("Authorization") == null) {
+
+
       this.router.navigate(['login']);
     }
     return this.http.post<ResponseServer>(UrlServerAPISearchInvest, searchRequest, { headers: this.headers });

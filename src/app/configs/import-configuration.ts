@@ -28,16 +28,21 @@ import { MaterialModule } from '../sharings/material/material.module';
 // import { LineChartModule } from '../sharings/modules/charts/line-chart/line-chart.module';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import {NzMenuModule} from 'ng-zorro-antd/menu';
-import {NzBreadCrumbModule} from 'ng-zorro-antd/breadcrumb';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { SocialLoginModule } from 'angularx-social-login';
 import { IconsProviderModule } from '../icons-provider.module';
-
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 export const IMPORTS = [
   BrowserModule,
   HttpClientModule,
-  SocialLoginModule,  
+  SocialLoginModule,
   ReactiveFormsModule,
   BrowserAnimationsModule,
   BrowserAnimationsModule,
@@ -63,6 +68,13 @@ export const IMPORTS = [
   NzMenuModule,
   NzBreadCrumbModule,
   IconsProviderModule,
+  NzTableModule,
+  NzModalModule,
+  NzButtonModule,
+  NzSpinModule,
+  NzIconModule,
+  NzSelectModule,
+
   //BarChartModule,
   //LineChartModule,
   ROUTER,
