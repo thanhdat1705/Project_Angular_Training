@@ -1,0 +1,108 @@
+<div *ngIf="data!=null;else nodata">
+    <form nz-form [formGroup]="form">
+        <nz-form-item>
+            <nz-input-group>
+                <input nz-input placeholder="Tên sản phẩm" formControlName="nameProduct" />
+            </nz-input-group>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <nz-textarea-count [nzMaxCharacterCount]="100">
+                    <textarea rows="4" formControlName="description" nz-input placeholder="Mô tả" nzAutosize></textarea>
+                </nz-textarea-count>
+            </nz-form-control>
+        </nz-form-item>
+
+        <div id="block-inline">
+            <nz-form-item class="block">
+                <nz-input-number [nzMin]="1" [nzMax]="10000" formControlName="numberProduct" [nzStep]="1" nzSize="large"
+                    nzPlaceHolder="Số lượng nhập">
+                </nz-input-number>
+            </nz-form-item>
+            <nz-form-item class="block">
+                <nz-input-number [nzMin]="1" [nzMax]="10000" formControlName="unitPrice" [nzStep]="1" nzSize="large"
+                    nzPlaceHolder="Đơn giá">
+                </nz-input-number>
+            </nz-form-item>
+            <nz-form-item class="block">
+                <nz-input-number [nzMin]="1" [nzMax]="10000" formControlName="importPrice" [nzStep]="1" nzSize="large"
+                    nzPlaceHolder="Chi phí nhập">
+                </nz-input-number>
+            </nz-form-item>
+
+        </div>
+        <nz-form-item>
+            <nz-form-control>
+                <nz-select nzShowSearch nzAllowClear nzSize="large" formControlName="unit" nzPlaceHolder="Đơn vị tính">
+                    <nz-option *ngFor="let unit of units" nzLabel="{{unit}}" nzValue="{{unit}}">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <nz-select nzShowSearch nzAllowClear nzSize="large" formControlName="categoryName"
+                    nzPlaceHolder="Chọn loại sản phẩm">
+                    <nz-option *ngFor="let cate of categories" nzLabel="{{cate.categoryName}}" nzValue="{{cate.id}}">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+<ng-template #nodata>
+    <form nz-form [formGroup]="form" (ngSubmit)="onStoreProduct(form.value)">
+        <nz-form-item>
+            <nz-input-group>
+                <input nz-input placeholder="Tên sản phẩm" formControlName="ProductName" />
+            </nz-input-group>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <nz-textarea-count [nzMaxCharacterCount]="100">
+                    <textarea rows="4" formControlName="Description" nz-input placeholder="Mô tả" nzAutosize></textarea>
+                </nz-textarea-count>
+            </nz-form-control>
+        </nz-form-item>
+
+        <div id="block-inline">
+            <nz-form-item class="block">
+                <nz-input-number [nzMin]="1" [nzMax]="10000" formControlName="QuantityInStock" [nzStep]="1"
+                    nzSize="large" nzPlaceHolder="Số lượng nhập">
+                </nz-input-number>
+            </nz-form-item>
+            <nz-form-item class="block">
+                <nz-input-number [nzMin]="1" [nzMax]="10000" formControlName="UnitPrice" [nzStep]="1" nzSize="large"
+                    nzPlaceHolder="Đơn giá">
+                </nz-input-number>
+            </nz-form-item>
+            <nz-form-item class="block">
+                <nz-input-number [nzMin]="1" [nzMax]="10000" formControlName="ImportPrice" [nzStep]="1" nzSize="large"
+                    nzPlaceHolder="Chi phí nhập">
+                </nz-input-number>
+            </nz-form-item>
+
+        </div>
+
+        <nz-form-item>
+            <nz-form-control>
+                <nz-select nzShowSearch nzAllowClear formControlName="Unit" nzPlaceHolder="Đơn vị tính">
+                    <nz-option *ngFor="let unit of units" nzLabel="{{unit}}" nzValue="{{unit}}">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <nz-select nzShowSearch nzAllowClear formControlName="CategoryId" nzPlaceHolder="Chọn loại sản phẩm">
+                    <nz-option *ngFor="let cate of categories" nzLabel="{{cate.categoryName}}" nzValue="{{cate.id}}">
+                    </nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <button nz-button nzType="primary" [nzLoading]="loading" nzBlock>Thêm sản phẩm</button>
+    </form>
+
+
+</ng-template>

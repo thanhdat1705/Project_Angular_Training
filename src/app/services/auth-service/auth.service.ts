@@ -21,10 +21,10 @@ export class AuthService {
   isLoginUser: boolean = false;
 
   loginSocialRequest: LoginSocialRequest = {
-    provider: 0,  
+    provider: 0,
     token: null,
     tokenSecret: null,
-      
+
   };
 
   constructor(private socialAuthService: SocialAuthService, private router: Router,
@@ -76,21 +76,21 @@ export class AuthService {
   // }
 
   signInWithGoogle() {
-    // this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
-    //   (response) => {
-    //     this.user = response;
-    //     this.login();
-    //   }
-    // ).catch(
-    //   (error) => {
-    //     this.generalService.handleError(error);
-    //   }
-    // );
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(
+      (response) => {
+        this.user = response;
+        this.login();
+      }
+    ).catch(
+      (error) => {
+        this.generalService.handleError(error);
+      }
+    );
   }
   signInWithFacebook() {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then(
       (response) => {
-        this.user = response;        
+        this.user = response;
         this.login();
       }
     ).catch(
@@ -103,8 +103,8 @@ export class AuthService {
     this.isLoginUser = true;
     this.generalService.openWaitingPopup();
     this.account = {
-      id:this.user.id,
-      displayName:this.user.name,
+      id: this.user.id,
+      displayName: this.user.name,
       email: this.user.email,
       photoUrl: this.user.photoUrl,
       phone: '',
@@ -119,7 +119,7 @@ export class AuthService {
       1000
     );
     this.router.navigate(['main']);
-    
+
     if (this.user.provider == "GOOGLE") {
       this.loginSocialRequest.provider = 1;
     } else if (this.user.provider == "FACEBOOK") {
@@ -128,7 +128,7 @@ export class AuthService {
     this.loginSocialRequest.token = this.user.authToken;
     console.log(this.loginSocialRequest);
     // //login to system
-    
+
     this.summaryService.loginSocial(this.loginSocialRequest).subscribe(
       (response) => {
         //console.log(response);

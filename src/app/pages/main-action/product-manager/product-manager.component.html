@@ -1,0 +1,31 @@
+<nz-table #rowSelectionTable nzShowSizeChanger [nzLoading]="loading" [nzData]="listProduct">
+  <thead>
+    <tr>
+      <!-- <th [nzSelections]="listProduct" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate"></th> -->
+      <th>NO.</th>
+      <th>Tên sản phẩm</th>
+      <th>Mô tả</th>
+      <th>Tồn kho</th>
+      <th>Đơn vị tính</th>
+      <th>Đơn giá bán</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prod of listProduct;index as i">
+      <td>{{ i+1 }}</td>
+      <td>{{prod.productName }}</td>
+      <td>{{ prod.description }}</td>
+      <td>{{ prod.quantityInStock }} </td>
+
+      <td>{{ prod.unit }}</td>
+      <td>{{ prod.unitPrice | currency:"VND" }}</td>
+      <td> <button nz-button (click)="showModal(prod.id)">Chi tiết</button> </td>
+      <td> <a nz-button nzType="default" nzShape="circle"><i nz-icon nzType="delete" nzTheme="outline"></i></a></td>
+    </tr>
+  </tbody>
+  <button nz-button nzType="primary" (click)="showModal(null)">
+    <span>Thêm sản phẩm</span>
+  </button>
+</nz-table>

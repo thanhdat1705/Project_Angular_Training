@@ -18,7 +18,7 @@
               <nz-divider nzType="vertical"></nz-divider>
               <a>Delete</a>
             </td> -->
-                <td>{{ i+1}}</td>
+                <td>{{ i+(page*pageLimit)-(pageLimit-1) }}</td>
                 <td>{{ cost.costDescription }}</td>
                 <td>{{ cost.total }}</td>
                 <td>{{ cost.createAt }}</td>

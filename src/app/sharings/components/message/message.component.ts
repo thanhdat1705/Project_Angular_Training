@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from  '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -9,14 +9,14 @@ import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from  '@angular/material/dialo
 export class MessageComponent implements OnInit {
 
 
-  constructor(private  dialogRef:  MatDialogRef<MessageComponent>,
-    @Inject(MAT_DIALOG_DATA) public  data:  any) {}
+  constructor(private dialogRef: MatDialogRef<MessageComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
     this.dialogRef.disableClose;
     this.dialogRef.afterOpened().subscribe(_ => {
       setTimeout(() => {
-         this.dialogRef.close();
+        this.dialogRef.close();
       }, 2000)
     });
   }

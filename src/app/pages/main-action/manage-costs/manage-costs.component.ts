@@ -1,8 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Key } from 'protractor';
 import { GeneralHelperService } from 'src/app/services/general-helper.service';
 import { Cost, CostDetails, CostType } from 'src/app/sharings/models/cost-details';
 import { PageInfo } from 'src/app/sharings/models/page-info';
@@ -26,6 +24,8 @@ export class ManageCostsComponent implements OnInit {
   costTypes: CostType[] = null as any;
   costList: Cost[] = [];
   pageInfo: PageInfo = { isFirstPage: true, isLastPage: false, numberOfPage: 1, info: null as any };
+  page!: number;
+  pageLimit!: number;
   @Output() abccccdss = new EventEmitter();
 
   searchCostRequest: SearchCostRequest = {
@@ -39,13 +39,13 @@ export class ManageCostsComponent implements OnInit {
     // private http: HttpClientModule,
     //  private dialogRef: MatDialogRef<ManageCostsComponent>,
     // @Inject(MAT_DIALOG_DATA) public data: CostDetails, 
-    private costService: CostService, 
+    private costService: CostService,
     public generalService: GeneralHelperService
-    ) {
+  ) {
     this.form = this.formBuilder.group({
       comment: [null, [Validators.maxLength(100)]]
     });
-   }
+  }
 
   ngOnInit(): void {
     this.searchCostList();
@@ -73,7 +73,9 @@ export class ManageCostsComponent implements OnInit {
       return;
     }
     this.pageInfo.info = responseData.info;
-    //console.log(this.pageInfo);
+    console.log(this.pageInfo);
+    this.page = this.pageInfo.info.page;
+    this.pageLimit = this.pageInfo.info.limit;
     this.costList = responseData.data;
     //console.log(this.productList);
     this.pageInfo.numberOfPage = Math.ceil(this.pageInfo.info.totalRecord / this.pageInfo.info.limit);
@@ -119,7 +121,7 @@ export class ManageCostsComponent implements OnInit {
       this.isVisible = false;
       this.isOkLoading = false;
     }, 1000);
-    
+
   }
 
   handleCancel(): void {
