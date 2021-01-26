@@ -39,7 +39,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 export const IMPORTS = [
   BrowserModule,
   HttpClientModule,
@@ -80,6 +80,7 @@ export const IMPORTS = [
   NzFormModule,
   NzInputNumberModule,
   NzSelectModule,
+  NzPopconfirmModule,
   ROUTER,
 ];
 

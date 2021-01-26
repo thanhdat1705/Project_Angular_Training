@@ -82,4 +82,10 @@ export class ProductManagerService {
   storeNewProduct(data: any) {
     return this.service.storeNewProduct(data);
   }
+  deleteProduct(prodId: string) {
+    return this.service.deleteProduct(prodId);
+  }
+  getDetailProduct(prodId: string) {
+    return this.service.getDetailsProduct(prodId);
+  }
 }

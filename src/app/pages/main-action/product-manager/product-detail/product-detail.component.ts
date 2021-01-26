@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NzFooterComponent } from 'ng-zorro-antd/layout';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Category } from 'src/app/sharings/models/category';
-import { Product } from 'src/app/sharings/models/product';
+import { Product, ProductDetails } from 'src/app/sharings/models/product';
 import { ProductManagerService } from '../product-manager-service/product-manager.service';
 
 @Component({
@@ -15,9 +15,12 @@ export class ProductDetailComponent implements OnInit {
   validateForm!: FormGroup;
   selectedValue?: string;
   form!: FormGroup;
-  product!: Product;
+  product!: ProductDetails;
   number!: number;
-  @Input() data!: string;
+  categoryId!: string;
+  unitSelect!: string;
+  @Input() data!: ProductDetails;
+  @Output() confirmData = new EventEmitter<boolean>();
   loading = false;
   constructor(private ProductService: ProductManagerService, private modalService: NzModalService) { }
 
@@ -25,14 +28,21 @@ export class ProductDetailComponent implements OnInit {
     this.getCategory();
     this.getUnits();
     if (this.data != null) {
+      console.log(this.data)
+      this.product = this.data;
+      this.unitSelect = this.data.unit;
+      this.categoryId = this.data.category.id;
       this.form = new FormGroup({
-        nameProduct: new FormControl(''),
-        unitPrice: new FormControl(''),
-        importPrice: new FormControl(''),
-        unit: new FormControl(''),
-        categoryName: new FormControl(''),
-        description: new FormControl('')
+        ProductName: new FormControl(this.product.productName),
+        UnitPrice: new FormControl(this.product.unitPrice),
+        ImportPrice: new FormControl(this.product.cost.total),
+        Unit: new FormControl(this.unitSelect),
+        CategoryId: new FormControl(this.categoryId),
+        Description: new FormControl(this.product.description),
+        QuantityInStock: new FormControl(this.product.quantityInStock)
       });
+
+
     }
     else {
       this.form = new FormGroup({
@@ -49,7 +59,9 @@ export class ProductDetailComponent implements OnInit {
   categories: Category[] = [];
   units: string[] = [];
 
-
+  add() {
+    this.confirmData.emit(true);
+  }
   submitForm(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();

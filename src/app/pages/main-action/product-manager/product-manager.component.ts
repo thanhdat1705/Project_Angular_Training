@@ -6,7 +6,6 @@ import { ResponseSearch } from 'src/app/sharings/models/response-search';
 import { SearchProductRequest } from 'src/app/sharings/requests/search-product-request';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { NzFooterComponent } from 'ng-zorro-antd/layout';
 // interface ItemData {
 //   id: number;
 //   name: string;
@@ -19,29 +18,7 @@ import { NzFooterComponent } from 'ng-zorro-antd/layout';
   templateUrl: './product-manager.component.html'
 })
 export class ProductManagerComponent implements OnInit {
-  // listOfSelection = [
-  //   {
-  //     text: 'Select All Row',
-  //     onSelect: () => {
-  //       this.onAllChecked(true);
-  //     }
-  //   },
-  //   {
-  //     text: 'Select Odd Row',
-  //     onSelect: () => {
-  //       this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 !== 0));
-  //       this.refreshCheckedStatus();
-  //     }
-  //   },
-  //   {
-  //     text: 'Select Even Row',
-  //     onSelect: () => {
-  //       this.listOfCurrentPageData.forEach((data, index) => this.updateCheckedSet(data.id, index % 2 === 0));
-  //       this.refreshCheckedStatus();
-  //     }
-  //   }
-  // ];
-  checked = false;
+  checked = true;
   indeterminate = false;
   listOfCurrentPageData: Product[] = [];
   listProduct: Product[] = [];
@@ -73,7 +50,8 @@ export class ProductManagerComponent implements OnInit {
   searchResult?: ResponseSearch;
   pageInfo: PageInfo = { isFirstPage: true, isLastPage: false, numberOfPage: 1, info: null as any };
   isVisible = false;
-
+  titleConfirm!: string;
+  ConfirmModal!: NzModalRef
   ngOnInit(): void {
     // this.listOfData = new Array(200).fill(0).map((_, index) => {
     //   return {
@@ -87,44 +65,83 @@ export class ProductManagerComponent implements OnInit {
 
     this.searchProductList();
   }
-  showModal(pro: any): void {
-    var title: string;
-    pro == null ? title = 'Thêm sản phẩm' : title = 'Cập nhật sản phẩm'
+  showDetail(prodId: any): void {
+    this.checked = true;
+    this.productService.getDetailsProduct(prodId).subscribe((response) => {
+      const modal = this.modalService.create(
+        {
+
+          nzTitle: 'Cập nhật sản phẩm',
+          nzContent: ProductDetailComponent,
+          nzViewContainerRef: this.viewContainerRef,
+          nzMaskClosable: false,
+          nzClosable: true,
+          nzOnCancel: () => this.confirmAdd(),
+          nzComponentParams: {
+            data: response.data,
+
+          },
+          nzModalType: "default",
+          nzFooter: null
+          //#endregion
+        });
+      modal.afterClose.subscribe(() => {
+        if (this.checked == true)
+          this.searchProductList()
+        else {
+          console.log('cc')
+        }
+      });
+    })
+
+
+
+
+
+    // showModal.afterClose.subscribe
+  }
+
+
+
+  showAddProduct(pro: any): void {
+    this.checked = true;
     const modal = this.modalService.create(
       {
 
-        nzTitle: title,
+        nzTitle: 'Thêm sản phẩm',
         nzContent: ProductDetailComponent,
         nzViewContainerRef: this.viewContainerRef,
         nzMaskClosable: false,
         nzClosable: true,
+        nzOnCancel: () => this.confirmAdd(),
         nzComponentParams: {
-          data: pro
+          data: pro,
+
         },
         nzModalType: "default",
         nzFooter: null
         //#endregion
       });
-    modal.afterClose.subscribe(result => this.searchProductList());
+
+    modal.afterClose.subscribe(() => {
+      if (this.checked == true)
+        this.searchProductList()
+      else {
+        console.log('cc')
+      }
+    });
+
+
     // showModal.afterClose.subscribe
   }
-  // handleOk(): void {
-  //   this.isConfirmLoading = true;
-  //   setTimeout(() => {
-  //     this.isVisible = false;
-  //     this.isConfirmLoading = false;
-  //   }, 3000);
-  // }
-
-  // handleCancel(): void {
-  //   this.isVisible = false;
-  // }
+  confirmAdd() {
+    this.checked = false;
+  }
   private searchProductList() {
     this.loading = true;
     return this.productService.searchProduct(this.searchProductRequest).subscribe(
       (response) => {
         this.loading = false;
-        console.log(response.data);
         this.getData(response.data);
       },
       (error) => {
@@ -140,21 +157,44 @@ export class ProductManagerComponent implements OnInit {
       return;
     }
     this.pageInfo.info = responseData.info;
-    console.log(this.pageInfo);
-    console.log(this.pageInfo.info.limit);
 
     this.listProduct = responseData.data;
-    console.log("list" + this.listProduct);
+
     // this.pageInfo.numberOfPage = Math.ceil(this.pageInfo.info.totalRecord / this.pageInfo.info.limit);
     // if (this.pageInfo.info.page == 1) {
     //   this.pageInfo.isFirstPage = true;
     // } else {
     //   this.pageInfo.isFirstPage = false;
-    // }
+    // } 
     // if (this.pageInfo.info.page == this.pageInfo.numberOfPage) {
     //   this.pageInfo.isLastPage = true;
     // } else {
     //   this.pageInfo.isLastPage = false;
     // }
+  }
+  showConfirmDelete(prod: Product) {
+    this.ConfirmModal = this.modalService.confirm({
+      nzTitle: 'Bạn có chắc chắn muốn xóa sản phẩm:' + prod.productName,
+      nzOnOk: () =>
+        new Promise((resolve, reject) => {
+          setTimeout(this.deleteProduct(prod.id) ? resolve : reject, 1000);
+        }).catch(() => console.log('Oops errors!'))
+    });
+
+  }
+  deleteProduct(prodId: string) {
+    return this.productService.deleteProduct(prodId).subscribe(
+      (response) => {
+
+        this.modalService.success({
+          nzContent: response.message
+        })
+        this.searchProductList();
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+
   }
 }

@@ -169,17 +169,11 @@ export class SummaryService {
   }
 
   public updateProduct(data: any, id: string): Observable<ResponseServer> {
-    if (this.headers.get("Authorization") == null) {
-      this.router.navigate(['login']);
-    }
     return this.http.put<ResponseServer>(UrlServerAPIProduct + '/' + id, data, { headers: this.headers });
   }
 
   public deleteProduct(id: string): Observable<ResponseServer> {
-    const headers = { 'Authorization': 'Bearer my-token' };
-    if (this.headers.get("Authorization") == null) {
-      this.router.navigate(['login']);
-    }
+
     return this.http.delete<ResponseServer>(UrlServerAPIProduct + '/' + id, { headers: this.headers });
   }
 
