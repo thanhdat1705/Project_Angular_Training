@@ -235,12 +235,12 @@ export class SummaryService {
   }
 
   public searchCost(searchRequest: SearchCostRequest): Observable<ResponseServer> {
-    const headers = { 'Authorization': 'Bearer my-token' };
+    // const headers = { 'Authorization': 'Bearer my-token' };
     return this.http.post<ResponseServer>(UrlServerAPISearchCost, searchRequest, { headers: this.headers });
   }
 
   public storeNewCost(data: any): Observable<ResponseServer> {
-    const headers = { 'Authorization': 'Bearer my-token' };
+    // const headers = { 'Authorization': 'Bearer my-token' };
     return this.http.post<ResponseServer>(UrlServerAPICost, data, { headers: this.headers });
   }
 
@@ -255,7 +255,7 @@ export class SummaryService {
   }
 
   public getDetailsCost(id: string): Observable<ResponseServer> {
-    const headers = { 'Authorization': 'Bearer my-token' };
+    // const headers = { 'Authorization': 'Bearer my-token' };
     return this.http.get<ResponseServer>(UrlServerAPICost + '/' + id, { headers: this.headers });
   }
 

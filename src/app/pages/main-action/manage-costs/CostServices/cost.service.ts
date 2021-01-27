@@ -20,4 +20,8 @@ export class CostService {
   searchCost(searchCostRequest: SearchCostRequest){
     return this.service.searchCost(searchCostRequest);
   }
+
+  getDetailsCost(id: string) {
+    return this.service.getDetailsCost(id);
+  }
 }

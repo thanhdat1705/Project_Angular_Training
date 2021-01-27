@@ -17,7 +17,7 @@ export interface CostTypeDetails {
     total: number;
 }
 export interface CostDetails {
-    id: number;
+    id: string;
     costType: CostType;
     costDescription: string;
     total: number;

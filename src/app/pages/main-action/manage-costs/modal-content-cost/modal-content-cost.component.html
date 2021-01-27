@@ -1,0 +1,61 @@
+<div *ngIf="data!=null; else noData">
+    <form nz-form *ngIf="form!=null; elseNull" [formGroup]="form" nzLayout="vertical" (ngSubmit)="addNewCost(form.value)">
+        <div>
+            <div>
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Input maximum 100 character">
+                        <textarea rows="4" formControlName="CostDescription" nz-input placeholder="Cost Description" nzAutosize required></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div>
+                <nz-form-item class="totalCost">
+                    <nz-form-control nzErrorTip="Number and greater than 1000">
+                        <nz-input-number formControlName="Total" nzSize="large" nzPlaceHolder="Total cost" required>dasads</nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="costType">
+                    <nz-form-control>
+                        <nz-select nzShowSearch nzAllowClear formControlName="CostTypeId" nzPlaceHolder="Select a person" nzSize="large" nzValue="selectedValue" required>
+                            <nz-option *ngFor="let costType of costTypes" nzLabel="{{ costType.costTypeName }}" nzValue="{{ costType.id }}"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="totalCost">
+                    <nz-form-control>
+                        <input nz-input nzSize="large" placeholder="Create time" readonly value="{{getCreateTime(data.createAt)}}" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <button nz-button nzType="primary" [nzLoading]="isOkLoading" nzBlock>Update</button>
+    </form>
+</div>
+<ng-template #noData>
+    <form nz-form [formGroup]="form" nzLayout="vertical" (ngSubmit)="addNewCost(form.value)">
+        <div>
+            <div>
+                <nz-form-item>
+                    <nz-form-control nzErrorTip="Input maximum 100 character">
+                        <textarea rows="4" formControlName="CostDescription" nz-input placeholder="Cost Description" nzAutosize required></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div>
+                <nz-form-item class="totalCost">
+                    <nz-form-control nzErrorTip="Number and greater than 1000">
+                        <nz-input-number formControlName="Total" nzSize="large" nzPlaceHolder="Total cost" required>dasads</nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item class="costType">
+                    <nz-form-control>
+                        <nz-select nzShowSearch nzAllowClear formControlName="CostTypeId" nzPlaceHolder="Select a person" nzSize="large" required>
+                            <nz-option *ngFor="let costType of costTypes" nzLabel="{{ costType.costTypeName }}" nzValue="{{ costType.id }}"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <button nz-button nzType="primary" [nzLoading]="isOkLoading" nzBlock>Add New Cost</button>
+    </form>
+</ng-template>

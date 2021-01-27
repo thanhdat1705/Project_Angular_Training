@@ -1,14 +1,14 @@
-import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Key } from 'protractor';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { GeneralHelperService } from 'src/app/services/general-helper.service';
-import { Cost, CostDetails, CostType } from 'src/app/sharings/models/cost-details';
+import { Cost, CostDetails } from 'src/app/sharings/models/cost-details';
+import { DateTime } from 'src/app/sharings/models/date-time';
 import { PageInfo } from 'src/app/sharings/models/page-info';
 import { ResponseSearch } from 'src/app/sharings/models/response-search';
 import { SearchCostRequest } from 'src/app/sharings/requests/search-request';
 import { CostService } from './CostServices/cost.service';
+import { ModalContentCostComponent } from './modal-content-cost/modal-content-cost.component';
 
 @Component({
   selector: 'app-manage-costs',
@@ -21,16 +21,17 @@ export class ManageCostsComponent implements OnInit {
   isOkLoading = false;
   color: string = '100px';
   totalCost!: number;
-  selectedValue = null;
-  form: FormGroup;
-  costTypes: CostType[] = null as any;
+  // inputFormControl: FormGroup;
   costList: Cost[] = [];
+  page!: number;
+  pageLimit!: number;
+  checked = false;
   pageInfo: PageInfo = { isFirstPage: true, isLastPage: false, numberOfPage: 1, info: null as any };
   @Output() abccccdss = new EventEmitter();
 
   searchCostRequest: SearchCostRequest = {
-    limit: 5,
-    page: 1,
+    limit: 10,
+    page: 0,
     search: "",
   };
 
@@ -38,17 +39,25 @@ export class ManageCostsComponent implements OnInit {
     private formBuilder: FormBuilder,
     // private http: HttpClientModule,
     //  private dialogRef: MatDialogRef<ManageCostsComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: CostDetails, 
-    private costService: CostService, 
-    public generalService: GeneralHelperService
-    ) {
-    this.form = this.formBuilder.group({
-      comment: [null, [Validators.maxLength(100)]]
-    });
-   }
+    private costService: CostService,
+    public generalService: GeneralHelperService,
+    private generalHelper: GeneralHelperService,
+    private modal: NzModalService,
+  ) {
+    // this.inputFormControl = this.formBuilder.group({
+    //   description: [null, [Validators.maxLength(100)]]
+    // });
+
+  }
 
   ngOnInit(): void {
     this.searchCostList();
+
+  }
+
+
+  getCreateTime(time: DateTime) {
+    return this.generalHelper.getToStringTime(time);
   }
 
   searchCostList() {
@@ -56,7 +65,7 @@ export class ManageCostsComponent implements OnInit {
     this.costService.searchCost(this.searchCostRequest).subscribe(
       (response) => {
         this.getData(response.data);
-        console.log(response.data);
+        //console.log(response.data);
       },
       (error) => {
         this.generalService.handleError(error);
@@ -73,20 +82,23 @@ export class ManageCostsComponent implements OnInit {
       return;
     }
     this.pageInfo.info = responseData.info;
-    //console.log(this.pageInfo);
+    console.log("Info: " + this.pageInfo.info.limit);
+    console.log("pageInfo: " + this.pageInfo);
+    this.page = this.pageInfo.info.page;
+    this.pageLimit = this.pageInfo.info.limit;
     this.costList = responseData.data;
     //console.log(this.productList);
-    this.pageInfo.numberOfPage = Math.ceil(this.pageInfo.info.totalRecord / this.pageInfo.info.limit);
-    if (this.pageInfo.info.page == 1) {
-      this.pageInfo.isFirstPage = true;
-    } else {
-      this.pageInfo.isFirstPage = false;
-    }
-    if (this.pageInfo.info.page == this.pageInfo.numberOfPage) {
-      this.pageInfo.isLastPage = true;
-    } else {
-      this.pageInfo.isLastPage = false;
-    }
+    // this.pageInfo.numberOfPage = Math.ceil(this.pageInfo.info.totalRecord / this.pageInfo.info.limit);
+    // if (this.pageInfo.info.page == 1) {
+    //   this.pageInfo.isFirstPage = true;
+    // } else {
+    //   this.pageInfo.isFirstPage = false;
+    // }
+    // if (this.pageInfo.info.page == this.pageInfo.numberOfPage) {
+    //   this.pageInfo.isLastPage = true;
+    // } else {
+    //   this.pageInfo.isLastPage = false;
+    // }
   }
 
   // addNewCost(data) {
@@ -98,31 +110,64 @@ export class ManageCostsComponent implements OnInit {
   //   )
   // } 
 
-  getCostType() {
-    this.costService.getAllCostType().subscribe(
-      (response) => {
-        this.costTypes = response.data;
-      },
-      (error) => {
-        this.generalService.handleError(error);
+  showModalCostDetail(cost: any) {
+    this.checked = true;
+    if (cost != null) {
+      this.costService.getDetailsCost(cost.id).subscribe(
+        (response) => {
+          this.modal.create({
+            nzTitle: "Cost Detail",
+            nzContent: ModalContentCostComponent,
+            nzMaskClosable: false,
+            nzClosable: true,
+            nzWidth: "50%",
+            nzFooter: null,
+            nzOnCancel: () => this.confirmAdd(),
+            nzComponentParams: {
+              data: response.data,
+            }
+          });
+        }
+      )
+      this.modal.afterAllClose.subscribe(() => {
+        if (this.checked == true) {
+          this.searchCostList();
+        } else {
+          console.log('cc');
+        }
+      })
+    }
+  }
+
+  showModalCostAdd(cost: any) {
+    //console.log(cost);
+    this.checked = true;
+    // let title: string;
+    // cost == null ? title = "" : title = "Cost Detail";
+
+    this.modal.create({
+      nzTitle: "Add Cost",
+      nzContent: ModalContentCostComponent,
+      nzMaskClosable: false,
+      nzClosable: true,
+      nzWidth: "50%",
+      nzFooter: null,
+      nzOnCancel: () => this.confirmAdd(),
+      nzComponentParams: {
+        data: cost,
       }
-    )
+    });
+    this.modal.afterAllClose.subscribe(() => {
+      if (this.checked == true) {
+        this.searchCostList();
+      } else {
+        console.log('cc');
+      }
+
+    })
   }
 
-  showModalCost(): void {
-    this.isVisible = true;
-  }
-
-  handleOk(): void {
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.isVisible = false;
-      this.isOkLoading = false;
-    }, 1000);
-    
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
+  confirmAdd() {
+    this.checked = false;
   }
 }

@@ -6,6 +6,8 @@
                 <th>Description</th>
                 <th>Total Costs</th>
                 <th>Create time</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody *ngIf="costList!=null">
@@ -18,43 +20,17 @@
               <nz-divider nzType="vertical"></nz-divider>
               <a>Delete</a>
             </td> -->
-                <td>{{ i+(pageInfo.info.page*pageInfo.info.limit)-(pageInfo.info.limit-1) }}</td>
+                <td>{{ i+(page*pageLimit)-(pageLimit-1) }}</td>
                 <td>{{ cost.costDescription }}</td>
-                <td>{{ cost.total }}</td>
-                <td>{{ cost.createAt }}</td>
+                <td>{{ cost.total | currency:'VND' }}</td>
+                <td>{{ getCreateTime(cost.createAt) }}</td>
+                <td><button nz-button nzType="default" nzSize="large" nzShape="round" (click)="showModalCostDetail(cost)">Detail</button></td>
+                <td> <a nz-button nzType="default" nzShape="circle"><i nz-icon nzType="delete" nzTheme="outline"></i></a></td>
             </tr>
         </tbody>
     </nz-table>
     <div style="float:right; margin: 10px; width: 200px;">
-        <button nz-button nzType="default" nzSize="large" nzBlock (click)="showModalCost(); getCostType()">Add Cost</button>
-        <nz-modal [(nzVisible)]="isVisible" nzTitle="Add Cost" [nzFooter]="modalFooter" (nzOnCancel)="handleCancel()" nzClosable="false" nzWidth=50%>
-            <ng-container *nzModalContent>
-                <div>
-                    <div>
-                        <form nz-form [formGroup]="form" nzLayout="vertical">
-                            <nz-form-item>
-                                <nz-form-control>
-                                    <nz-textarea-count [nzMaxCharacterCount]="100">
-                                        <textarea rows="4" formControlName="comment" nz-input placeholder="Cost Description" nzAutosize></textarea>
-                                    </nz-textarea-count>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </form>
-                    </div>
-                    <div>
-                        <nz-input-number [(ngModel)]="totalCost" [nzMin]="1" [nzMax]="1000" [nzStep]="1" nzSize="large" nzPlaceHolder="Total cost"></nz-input-number>
-                        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue" nzSize="large">
-                            <nz-option *ngFor="let costType of costTypes" nzLabel="{{ costType.costTypeName }}" nzValue="{{ costType.id }}"></nz-option>
-                        </nz-select>
-
-                    </div>
-                </div>
-            </ng-container>
-            <ng-template #modalFooter>
-                <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
-                <button nz-button nzType="default" (click)="handleOk()" [nzLoading]="isOkLoading">Add New Cost</button>
-            </ng-template>
-        </nz-modal>
+        <button nz-button nzType="default" nzSize="large" nzBlock (click)="showModalCostAdd(null)">Add Cost</button>
     </div>
-    <!-- <input type="text" placeholder="A red placeholder text.."> -->
+    <!-- <input type="text " placeholder="A red placeholder text.. "> -->
 </div>

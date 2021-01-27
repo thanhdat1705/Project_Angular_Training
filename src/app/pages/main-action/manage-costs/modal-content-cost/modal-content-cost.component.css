@@ -1,0 +1,15 @@
+nz-input-number {
+    width: 180px;
+}
+
+nz-select {
+    margin-left: 20px;
+}
+
+.totalCost {
+    float: left;
+}
+
+.costType {
+    width: 30%;
+}
