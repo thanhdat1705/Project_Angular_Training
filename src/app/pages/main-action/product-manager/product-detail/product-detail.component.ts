@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzFooterComponent } from 'ng-zorro-antd/layout';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Category } from 'src/app/sharings/models/category';
@@ -20,7 +20,6 @@ export class ProductDetailComponent implements OnInit {
   categoryId!: string;
   unitSelect!: string;
   @Input() data!: ProductDetails;
-  @Output() confirmData = new EventEmitter<boolean>();
   loading = false;
   constructor(private ProductService: ProductManagerService, private modalService: NzModalService) { }
 
@@ -33,39 +32,34 @@ export class ProductDetailComponent implements OnInit {
       this.unitSelect = this.data.unit;
       this.categoryId = this.data.category.id;
       this.form = new FormGroup({
-        ProductName: new FormControl(this.product.productName),
-        UnitPrice: new FormControl(this.product.unitPrice),
-        ImportPrice: new FormControl(this.product.cost.total),
-        Unit: new FormControl(this.unitSelect),
-        CategoryId: new FormControl(this.categoryId),
-        Description: new FormControl(this.product.description),
-        QuantityInStock: new FormControl(this.product.quantityInStock)
+        ProductName: new FormControl(this.product.productName, [Validators.required]),
+        UnitPrice: new FormControl(this.product.unitPrice, [Validators.required]),
+        ImportPrice: new FormControl(this.product.cost.total, [Validators.required]),
+        Unit: new FormControl(this.unitSelect, [Validators.required]),
+        CategoryId: new FormControl(this.categoryId, [Validators.required]),
+        Description: new FormControl(this.product.description, [Validators.required]),
+        QuantityInStock: new FormControl(this.product.quantityInStock, [Validators.required])
       });
-
-
     }
     else {
       this.form = new FormGroup({
-        ProductName: new FormControl(''),
-        UnitPrice: new FormControl(''),
-        ImportPrice: new FormControl(''),
-        Unit: new FormControl(''),
-        CategoryId: new FormControl(''),
-        Description: new FormControl(''),
-        QuantityInStock: new FormControl('')
+        ProductName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        UnitPrice: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+        ImportPrice: new FormControl('', [Validators.required]),
+        Unit: new FormControl('', [Validators.required]),
+        CategoryId: new FormControl('', [Validators.required]),
+        Description: new FormControl('', [Validators.required]),
+        QuantityInStock: new FormControl('', [Validators.required])
       });
     }
   }
   categories: Category[] = [];
   units: string[] = [];
 
-  add() {
-    this.confirmData.emit(true);
-  }
-  submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
+  validateInput(): void {
+    for (const i in this.form.controls) {
+      this.form.controls[i].markAsDirty();
+      this.form.controls[i].updateValueAndValidity();
     }
   }
   getCategory() {
@@ -97,23 +91,52 @@ export class ProductDetailComponent implements OnInit {
     )
   }
   onStoreProduct(data: any) {
-    this.loading = true;
-    this.ProductService.storeNewProduct(data).subscribe(
-      (response) => {
-        console.log(data);
-        this.loading = false;
-        this.modalService.success({
-          nzContent: 'Thêm sản phẩm thành công'
+    this.validateInput()
+    if (this.form.valid) {
+      this.loading = true;
+      this.ProductService.storeNewProduct(data).subscribe(
+        (response) => {
+          console.log(data);
+          this.loading = false;
+          this.modalService.success({
+            nzContent: 'Thêm sản phẩm thành công'
 
-        });
+          });
 
-        setTimeout(() => this.modalService.closeAll(), 1000);
-        console.log(response.message);
-      },
-      (error) => {
-        console.log(error);
+          setTimeout(() => this.modalService.closeAll(), 1000);
+          console.log(response.message);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
+
+  }
+  updateProduct(prod: any) {
+    this.validateInput()
+    if (this.form.valid) {
+      for (const i in this.form.controls) {
+        this.validateForm.controls[i].markAsDirty();
+        this.validateForm.controls[i].updateValueAndValidity();
       }
-    );
+      this.loading = true;
+      this.ProductService.updateProduct(prod, this.data.id).subscribe(
+        (response) => {
+          this.loading = false;
+          this.modalService.success({
+            nzContent: 'Cập nhật phẩm thành công'
 
+          });
+
+          setTimeout(() => this.modalService.closeAll(), 1000);
+          console.log(response.message);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+
+    }
   }
 }

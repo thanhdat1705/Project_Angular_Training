@@ -88,4 +88,8 @@ export class ProductManagerService {
   getDetailProduct(prodId: string) {
     return this.service.getDetailsProduct(prodId);
   }
+  updateProduct(data: any, prodId: string) {
+    return this.service.updateProduct(data, prodId);
+  }
+
 }
