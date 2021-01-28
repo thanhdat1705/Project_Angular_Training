@@ -27,6 +27,7 @@ export class ManageCostsComponent implements OnInit {
   pageLimit!: number;
   checked = false;
   pageInfo: PageInfo = { isFirstPage: true, isLastPage: false, numberOfPage: 1, info: null as any };
+
   @Output() abccccdss = new EventEmitter();
 
   searchCostRequest: SearchCostRequest = {

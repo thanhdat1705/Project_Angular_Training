@@ -1,0 +1,25 @@
+[nz-form] {
+    max-width: 600px;
+}
+  .block{
+
+    display: inline-block;
+
+  }
+  #block-inline{
+    width:auto;
+  }
+  #importPrice{
+    width: auto;
+  }
+  nz-input-number{
+  width: 150px;
+  margin-left: 5px;
+  }
+ nz-select { 
+    width: 50px;
+  }
+  [nzPlaceHolder]{
+    font-size: small;
+  }
+
