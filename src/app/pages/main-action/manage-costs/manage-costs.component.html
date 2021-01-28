@@ -1,18 +1,19 @@
 <div>
-    <nz-table #costTable nzFooter="Footer" [nzData]="costList">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Description</th>
-                <th>Total Costs</th>
-                <th>Create time</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody *ngIf="costList!=null">
-            <tr *ngFor="let cost of costList; index as i">
-                <!-- <td>{{data.name}}</td>
+    <nz-spin [nzSpinning]="detailLoading" nzTip="Loading...">
+        <nz-table #costTable nzFooter="Footer" [nzData]="costList" [nzLoading]="tableLoading">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Description</th>
+                    <th>Total Costs</th>
+                    <th>Create time</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody *ngIf="costList!=null">
+                <tr *ngFor="let cost of costList; index as i">
+                    <!-- <td>{{data.name}}</td>
             <td>{{data.age}}</td>
             <td>{{data.address}}</td>
             <td>
@@ -20,17 +21,18 @@
               <nz-divider nzType="vertical"></nz-divider>
               <a>Delete</a>
             </td> -->
-                <td>{{ i+(page*pageLimit)-(pageLimit-1) }}</td>
-                <td>{{ cost.costDescription }}</td>
-                <td>{{ cost.total | currency:'VND' }}</td>
-                <td>{{ getCreateTime(cost.createAt) }}</td>
-                <td><button nz-button nzType="default" nzSize="large" nzShape="round" (click)="showModalCostDetail(cost)">Detail</button></td>
-                <td> <a nz-button nzType="default" nzShape="circle"><i nz-icon nzType="delete" nzTheme="outline"></i></a></td>
-            </tr>
-        </tbody>
-    </nz-table>
-    <div style="float:right; margin: 10px; width: 200px;">
-        <button nz-button nzType="default" nzSize="large" nzBlock (click)="showModalCostAdd(null)">Add Cost</button>
-    </div>
+                    <td>{{ i+(page*pageLimit)-(pageLimit-1) }}</td>
+                    <td>{{ cost.costDescription }}</td>
+                    <td>{{ cost.total | currency:'VND' }}</td>
+                    <td>{{ getCreateTime(cost.createAt) }}</td>
+                    <td><button nz-button nzType="default" nzSize="large" nzShape="round" (click)="showModalCostDetail(cost)">Detail</button></td>
+                    <td> <a nz-button nzType="default" nzShape="circle">Delete</a></td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <div style="float:right; margin: 10px; width: 200px;">
+            <button nz-button nzType="default" nzSize="large" nzBlock (click)="showModalCostAdd(null)">Add Cost</button>
+        </div>
+    </nz-spin>
     <!-- <input type="text " placeholder="A red placeholder text.. "> -->
 </div>

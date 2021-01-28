@@ -18,7 +18,6 @@ import { ModalContentCostComponent } from './modal-content-cost/modal-content-co
 export class ManageCostsComponent implements OnInit {
   titleComponent: string = 'Quản lý danh sách chi phí';
   isVisible = false;
-  isOkLoading = false;
   color: string = '100px';
   totalCost!: number;
   // inputFormControl: FormGroup;
@@ -26,6 +25,10 @@ export class ManageCostsComponent implements OnInit {
   page!: number;
   pageLimit!: number;
   checked = false;
+
+  tableLoading = false;
+  detailLoading = false;
+
   pageInfo: PageInfo = { isFirstPage: true, isLastPage: false, numberOfPage: 1, info: null as any };
   @Output() abccccdss = new EventEmitter();
 
@@ -61,13 +64,16 @@ export class ManageCostsComponent implements OnInit {
   }
 
   searchCostList() {
+    this.tableLoading = true;
     this.costList = null as any;
     this.costService.searchCost(this.searchCostRequest).subscribe(
       (response) => {
+        this.tableLoading = false;
         this.getData(response.data);
         //console.log(response.data);
       },
       (error) => {
+        this.tableLoading = false;
         this.generalService.handleError(error);
       }
     );
@@ -112,31 +118,30 @@ export class ManageCostsComponent implements OnInit {
 
   showModalCostDetail(cost: any) {
     this.checked = true;
-    if (cost != null) {
-      this.costService.getDetailsCost(cost.id).subscribe(
-        (response) => {
-          this.modal.create({
-            nzTitle: "Cost Detail",
-            nzContent: ModalContentCostComponent,
-            nzMaskClosable: false,
-            nzClosable: true,
-            nzWidth: "50%",
-            nzFooter: null,
-            nzOnCancel: () => this.confirmAdd(),
-            nzComponentParams: {
-              data: response.data,
-            }
-          });
-        }
-      )
-      this.modal.afterAllClose.subscribe(() => {
-        if (this.checked == true) {
-          this.searchCostList();
-        } else {
-          console.log('cc');
-        }
+    this.detailLoading = true;
+    this.costService.getDetailsCost(cost.id).subscribe(
+      (response) => {
+        this.detailLoading = false;
+        this.modal.create({
+          nzTitle: "Cost Detail",
+          nzContent: ModalContentCostComponent,
+          nzMaskClosable: false,
+          nzClosable: true,
+          nzWidth: "50%",
+          nzFooter: null,
+          nzOnCancel: () => this.confirmAdd(),
+          nzComponentParams: {
+            data: response.data,
+          }
+        });
+        this.modal.afterAllClose.subscribe(() => {
+          if (this.checked == true) {
+            this.searchCostList();
+          } else {
+            console.log('cc');
+          }
+        });
       })
-    }
   }
 
   showModalCostAdd(cost: any) {

@@ -40,7 +40,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 export const IMPORTS = [
   BrowserModule,
@@ -83,6 +83,7 @@ export const IMPORTS = [
   NzInputNumberModule,
   NzSelectModule,
   NzIconModule,
+  NzSpinModule,
   ROUTER,
 ];
 

@@ -70,21 +70,17 @@ export class ModalContentCostComponent implements OnInit {
 
   addNewCost(data: any) {
     if (this.form.valid) {
-      // for (const i in this.form.controls) {
-      //   this.form.controls[i].markAsDirty();
-      //   this.form.controls[i].updateValueAndValidity();
-      // }
       this.isOkLoading = true;
       this.costService.storeNewCost(data).subscribe(
-        (respone) => {
+        (response) => {
           this.isOkLoading = false;
-          console.log("data: --" + respone);
+          console.log("data: --" + response);
           this.modal.success({
-            nzContent: 'Add new cost successfuly',
+            nzContent: 'Thêm mới chi phí thành công',
             nzOnOk: () => this.modal.closeAll()
           });
           // setTimeout(() => this.modal.closeAll(), 1000);
-          console.log(respone.message);
+          console.log(response.message);
         },
         (error) => {
           this.isOkLoading = false;
@@ -93,14 +89,26 @@ export class ModalContentCostComponent implements OnInit {
         }
       )
     }
-    // setTimeout(() => {
-    //   this.isOkLoading = false;
-    //   this.modal.closeAll();
-    // }, 1000);
   }
 
   updateCost(data: any, id: string) {
-    console.log("update");
+    if (this.form.valid) {
+      this.isOkLoading = true;
+      this.costService.updateCost(data, id).subscribe(
+        (response) => {
+          this.isOkLoading = false;
+          this.modal.success({
+            nzContent: 'Cập nhật thành công',
+            nzOnOk: () => this.modal.closeAll()
+          });
+          console.log(response.message);
+        },
+        (error) => {
+          this.isOkLoading = false;
+          console.log(error);
+        }
+      )
+    }
   }
 
   getCreateTime(time: any) {
