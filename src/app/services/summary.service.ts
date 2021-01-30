@@ -230,12 +230,16 @@ export class SummaryService {
   }
 
   public updateCost(data: any, id: string): Observable<ResponseServer> {
-    const headers = { 'Authorization': 'Bearer my-token' };
+    // const headers = { 'Authorization': 'Bearer my-token' };
     return this.http.put<ResponseServer>(UrlServerAPICost + '/' + id, data, { headers: this.headers });
   }
 
   public deleteCost(id: string): Observable<ResponseServer> {
-    const headers = { 'Authorization': 'Bearer my-token' };
+    // const headers = { 'Authorization': 'Bearer my-token' };
+    return this.http.delete<ResponseServer>(UrlServerAPICost + '/' + id, { headers: this.headers });
+  }
+
+  public deleteCost2(id: string): Observable<ResponseServer> {
     return this.http.delete<ResponseServer>(UrlServerAPICost + '/' + id, { headers: this.headers });
   }
 

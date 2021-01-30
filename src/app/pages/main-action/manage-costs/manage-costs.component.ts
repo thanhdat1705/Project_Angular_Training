@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { GeneralHelperService } from 'src/app/services/general-helper.service';
 import { Cost, CostDetails } from 'src/app/sharings/models/cost-details';
 import { DateTime } from 'src/app/sharings/models/date-time';
@@ -18,7 +18,6 @@ import { ModalContentCostComponent } from './modal-content-cost/modal-content-co
 export class ManageCostsComponent implements OnInit {
   titleComponent: string = 'Quản lý danh sách chi phí';
   isVisible = false;
-  isOkLoading = false;
   color: string = '100px';
   totalCost!: number;
   // inputFormControl: FormGroup;
@@ -26,6 +25,11 @@ export class ManageCostsComponent implements OnInit {
   page!: number;
   pageLimit!: number;
   checked = false;
+
+  tableLoading = false;
+  detailLoading = false;
+  confirmModal!: NzModalRef;
+
   pageInfo: PageInfo = { isFirstPage: true, isLastPage: false, numberOfPage: 1, info: null as any };
 
   @Output() abccccdss = new EventEmitter();
@@ -62,13 +66,16 @@ export class ManageCostsComponent implements OnInit {
   }
 
   searchCostList() {
+    this.tableLoading = true;
     this.costList = null as any;
     this.costService.searchCost(this.searchCostRequest).subscribe(
       (response) => {
+        this.tableLoading = false;
         this.getData(response.data);
         //console.log(response.data);
       },
       (error) => {
+        this.tableLoading = false;
         this.generalService.handleError(error);
       }
     );
@@ -113,31 +120,30 @@ export class ManageCostsComponent implements OnInit {
 
   showModalCostDetail(cost: any) {
     this.checked = true;
-    if (cost != null) {
-      this.costService.getDetailsCost(cost.id).subscribe(
-        (response) => {
-          this.modal.create({
-            nzTitle: "Cost Detail",
-            nzContent: ModalContentCostComponent,
-            nzMaskClosable: false,
-            nzClosable: true,
-            nzWidth: "50%",
-            nzFooter: null,
-            nzOnCancel: () => this.confirmAdd(),
-            nzComponentParams: {
-              data: response.data,
-            }
-          });
-        }
-      )
-      this.modal.afterAllClose.subscribe(() => {
-        if (this.checked == true) {
-          this.searchCostList();
-        } else {
-          console.log('cc');
-        }
+    this.detailLoading = true;
+    this.costService.getDetailsCost(cost.id).subscribe(
+      (response) => {
+        this.detailLoading = false;
+        this.modal.create({
+          nzTitle: "Cost Detail",
+          nzContent: ModalContentCostComponent,
+          nzMaskClosable: false,
+          nzClosable: true,
+          nzWidth: "50%",
+          nzFooter: null,
+          nzOnCancel: () => this.confirmAdd(),
+          nzComponentParams: {
+            data: response.data,
+          }
+        });
+        this.modal.afterAllClose.subscribe(() => {
+          if (this.checked == true) {
+            this.searchCostList();
+          } else {
+            console.log('cc');
+          }
+        });
       })
-    }
   }
 
   showModalCostAdd(cost: any) {
@@ -166,6 +172,28 @@ export class ManageCostsComponent implements OnInit {
       }
 
     })
+  }
+
+  deleteCost(id: string, description: string) {
+    this.confirmModal = this.modal.confirm({
+      nzTitle: '<i>Do you Want to delete this item?</i>',
+      nzContent: '<b>' + description + '</b>',
+      nzOnOk: () => {
+        this.tableLoading = true;
+        this.costService.deleteCost(id).subscribe(
+          (response) => {
+            this.tableLoading = false;
+            this.modal.success({
+              nzContent: 'Xóa chi phí thành công',
+              nzOnOk: () => console.log('ok'),
+            });
+            this.searchCostList();
+            console.log(response.message);
+          }
+        )
+      }
+    });
+
   }
 
   confirmAdd() {

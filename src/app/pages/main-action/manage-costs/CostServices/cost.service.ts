@@ -24,4 +24,12 @@ export class CostService {
   getDetailsCost(id: string) {
     return this.service.getDetailsCost(id);
   }
+
+  updateCost(data: any, id: string) {
+    return this.service.updateCost(data, id);
+  }
+
+  deleteCost(id: string) {
+    return this.service.deleteCost(id);
+  }
 }

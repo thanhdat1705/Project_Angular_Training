@@ -39,13 +39,10 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-<<<<<<< HEAD
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
-
-=======
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
->>>>>>> dungpaNew
 export const IMPORTS = [
   BrowserModule,
   HttpClientModule,
@@ -86,11 +83,9 @@ export const IMPORTS = [
   NzFormModule,
   NzInputNumberModule,
   NzSelectModule,
-<<<<<<< HEAD
   NzIconModule,
-=======
   NzPopconfirmModule,
->>>>>>> dungpaNew
+  NzSpinModule,
   ROUTER,
 ];
 
