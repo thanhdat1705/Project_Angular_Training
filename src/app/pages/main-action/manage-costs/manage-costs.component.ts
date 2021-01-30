@@ -35,8 +35,8 @@ export class ManageCostsComponent implements OnInit {
   @Output() abccccdss = new EventEmitter();
 
   searchCostRequest: SearchCostRequest = {
-    limit: 10,
-    page: 0,
+    limit: 5,
+    page: 1,
     search: "",
   };
 

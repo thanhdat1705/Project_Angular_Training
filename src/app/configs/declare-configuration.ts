@@ -10,13 +10,10 @@ import { CategoryComponent } from '../pages/main-action/category/category.compon
 import { LeftSidebarComponent } from '../pages/main-action/left-sidebar/left-sidebar.component';
 import { PageHeaderContentComponent } from '../pages/page-header-content/page-header-content.component';
 import { ManageCostsComponent } from '../pages/main-action/manage-costs/manage-costs.component';
-<<<<<<< HEAD
 import { ModalContentCostComponent } from '../pages/main-action/manage-costs/modal-content-cost/modal-content-cost.component';
-=======
 import { ProductManagerComponent } from '../pages/main-action/product-manager/product-manager.component';
 import { ProductDetailComponent } from '../pages/main-action/product-manager/product-detail/product-detail.component';
 
->>>>>>> dungpaNew
 
 export const DECLARATIONS = [
   AppComponent,
@@ -31,10 +28,7 @@ export const DECLARATIONS = [
   LeftSidebarComponent,
   PageHeaderContentComponent,
   ManageCostsComponent,
-<<<<<<< HEAD
   ModalContentCostComponent,
-=======
   ProductManagerComponent,
   ProductDetailComponent
->>>>>>> dungpaNew
 ];

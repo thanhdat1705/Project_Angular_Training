@@ -1,6 +1,6 @@
 <div>
     <nz-spin [nzSpinning]="detailLoading" nzTip="Loading...">
-        <nz-table #costTable nzFooter="Footer" [nzData]="costList" [nzLoading]="tableLoading">
+        <nz-table #costTable [nzData]="costList" [nzLoading]="tableLoading">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -29,10 +29,13 @@
                     <td> <a nz-button nzType="default" nzShape="circle" (click)="deleteCost(cost.id, cost.costDescription)">Delete</a></td>
                 </tr>
             </tbody>
+            <div style="margin: 10px; width: 200px;">
+                <button nz-button nzType="primary" nzBlock nzSize="large" (click)="showModalCostAdd(null)">
+                    <span>Add Cost</span>
+                </button>
+            </div>
         </nz-table>
-        <div style="float:right; margin: 10px; width: 200px;">
-            <button nz-button nzType="default" nzSize="large" nzBlock (click)="showModalCostAdd(null)">Add Cost</button>
-        </div>
+
     </nz-spin>
     <!-- <input type="text " placeholder="A red placeholder text.. "> -->
 </div>
