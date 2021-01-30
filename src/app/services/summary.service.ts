@@ -250,7 +250,11 @@ export class SummaryService {
   }
 
   public deleteCost(id: string): Observable<ResponseServer> {
-    const headers = { 'Authorization': 'Bearer my-token' };
+    // const headers = { 'Authorization': 'Bearer my-token' };
+    return this.http.delete<ResponseServer>(UrlServerAPICost + '/' + id, { headers: this.headers });
+  }
+
+  public deleteCost2(id: string): Observable<ResponseServer> {
     return this.http.delete<ResponseServer>(UrlServerAPICost + '/' + id, { headers: this.headers });
   }
 

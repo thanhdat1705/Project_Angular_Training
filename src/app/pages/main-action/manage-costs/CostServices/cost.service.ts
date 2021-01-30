@@ -28,4 +28,8 @@ export class CostService {
   updateCost(data: any, id: string) {
     return this.service.updateCost(data, id);
   }
+
+  deleteCost(id: string) {
+    return this.service.deleteCost(id);
+  }
 }

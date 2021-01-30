@@ -26,7 +26,7 @@
                     <td>{{ cost.total | currency:'VND' }}</td>
                     <td>{{ getCreateTime(cost.createAt) }}</td>
                     <td><button nz-button nzType="default" nzSize="large" nzShape="round" (click)="showModalCostDetail(cost)">Detail</button></td>
-                    <td> <a nz-button nzType="default" nzShape="circle">Delete</a></td>
+                    <td> <a nz-button nzType="default" nzShape="circle" (click)="deleteCost(cost.id, cost.costDescription)">Delete</a></td>
                 </tr>
             </tbody>
         </nz-table>

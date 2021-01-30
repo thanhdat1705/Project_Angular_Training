@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { GeneralHelperService } from 'src/app/services/general-helper.service';
 import { Cost, CostDetails } from 'src/app/sharings/models/cost-details';
 import { DateTime } from 'src/app/sharings/models/date-time';
@@ -28,6 +28,7 @@ export class ManageCostsComponent implements OnInit {
 
   tableLoading = false;
   detailLoading = false;
+  confirmModal!: NzModalRef;
 
   pageInfo: PageInfo = { isFirstPage: true, isLastPage: false, numberOfPage: 1, info: null as any };
   @Output() abccccdss = new EventEmitter();
@@ -170,6 +171,28 @@ export class ManageCostsComponent implements OnInit {
       }
 
     })
+  }
+
+  deleteCost(id: string, description: string) {
+    this.confirmModal = this.modal.confirm({
+      nzTitle: '<i>Do you Want to delete this item?</i>',
+      nzContent: '<b>' + description + '</b>',
+      nzOnOk: () => {
+        this.tableLoading = true;
+        this.costService.deleteCost(id).subscribe(
+          (response) => {
+            this.tableLoading = false;
+            this.modal.success({
+              nzContent: 'Xóa chi phí thành công',
+              nzOnOk: () => console.log('ok'),
+            });
+            this.searchCostList();
+            console.log(response.message);
+          }
+        )
+      }
+    });
+
   }
 
   confirmAdd() {
