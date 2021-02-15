@@ -1,0 +1,13 @@
+<form nz-form [formGroup]="form" nzLayout="vertical" (ngSubmit)="addNewCostType(form.value)">
+    <div>
+        <div>
+            <nz-form-item>
+                <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="costTypeName">Cost Type</nz-form-label>
+                <nz-form-control nzErrorTip="Input maximum 100 character">
+                    <input nz-input formControlName="costTypeName" id="costTypeName" placeholder="Cost Type" required />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <button nz-button nzType="primary" [nzLoading]="isOkLoading" nzBlock>Add New Cost Type</button>
+</form>

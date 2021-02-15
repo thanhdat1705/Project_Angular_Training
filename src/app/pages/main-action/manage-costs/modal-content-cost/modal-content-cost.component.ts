@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { GeneralHelperService } from 'src/app/services/general-helper.service';
@@ -22,12 +22,11 @@ export class ModalContentCostComponent implements OnInit {
     private costService: CostService,
     public generalService: GeneralHelperService,
     private modal: NzModalService,) {
-    this.form = this.formBuilder.group({
-      CostDescription: [null, [Validators.required, Validators.maxLength(100)]],
-      CostTypeId: [null, [Validators.required]],
-      Total: [null, [Validators.required, Validators.min(1000)]],
-
-    })
+    // this.form = this.formBuilder.group({
+    //   CostDescription: [null, [Validators.required, Validators.maxLength(100)]],
+    //   CostTypeId: [null, [Validators.required]],
+    //   Total: [null, [Validators.required, Validators.min(1000)]],
+    // })
   }
 
   ngOnInit(): void {
@@ -41,7 +40,7 @@ export class ModalContentCostComponent implements OnInit {
         Total: new FormControl(this.data.total, [Validators.required, Validators.min(1000)]),
       });
     } else {
-      console.log("ahihi");
+      console.log("ahihi Validators");
       this.form = new FormGroup({
         CostDescription: new FormControl('', [Validators.required, Validators.maxLength(100)]),
         CostTypeId: new FormControl('', [Validators.required]),
@@ -63,12 +62,17 @@ export class ModalContentCostComponent implements OnInit {
         this.costTypes = response.data;
       },
       (error) => {
-        this.generalService.handleError(error);
+        console.log(error);
+        this.generalService.createErrorNotification(error);
       }
     )
   }
 
   addNewCost(data: any) {
+      for (const i in this.form.controls) {
+      this.form.controls[i].markAsDirty();
+      this.form.controls[i].updateValueAndValidity();
+    }
     if (this.form.valid) {
       this.isOkLoading = true;
       this.costService.storeNewCost(data).subscribe(
@@ -85,7 +89,7 @@ export class ModalContentCostComponent implements OnInit {
         (error) => {
           this.isOkLoading = false;
           console.log(error);
-          // this.generalService.handleError(error);
+          this.generalService.createErrorNotification(error);
         }
       )
     }
@@ -106,6 +110,7 @@ export class ModalContentCostComponent implements OnInit {
         (error) => {
           this.isOkLoading = false;
           console.log(error);
+          this.generalService.createErrorNotification(error);
         }
       )
     }
@@ -115,4 +120,37 @@ export class ModalContentCostComponent implements OnInit {
     //console.log(time);
     return this.generalService.getToStringTime(time);
   }
+
+  // onInput($event: { target: any; }) {
+  //   if (!$event) {
+  //     return;
+  //   }
+  //   const target = $event.target;
+  //   console.log(target)
+  //   const regexp = /^\d+$/;
+  //   target.value = target.value.replace(regexp, '');
+  //   console.log(target.value)
+  // }
+  // value = '';
+  // @ViewChild('inputElement', { static: false }) inputElement?: ElementRef;
+
+  // onChange(value: string): void {
+  //   this.updateValue(value);
+  // }
+
+  // // '.' at the end or only '-' in the input box.
+  // onBlur(): void {
+  //   if (this.value.charAt(this.value.length - 1) === '.' || this.value === '-') {
+  //     this.updateValue(this.value.slice(0, -1));
+  //   }
+  // }
+
+  // updateValue(value: string): void {
+  //   const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
+  //   if ((!isNaN(+value) && reg.test(value)) || value === '' || value === '-') {
+  //     this.value = value;
+  //   }
+  //   this.inputElement!.nativeElement.value = this.value;
+  // }
+  // ahihi = "Nhập số và tối đa 1000 789";
 }

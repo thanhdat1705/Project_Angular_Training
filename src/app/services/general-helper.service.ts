@@ -19,6 +19,8 @@ import { Injectable } from '@angular/core';
 import { ChartDataSets } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 import { AutofillMonitor } from '@angular/cdk/text-field';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 
 @Injectable({
@@ -29,7 +31,9 @@ export class GeneralHelperService {
   private dialogWaitingPopupRef!: MatDialogRef<WaitingComponent>;
   constructor(private dialog: MatDialog, private router: Router,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer) {
+    private domSanitizer: DomSanitizer,
+    private notification: NzNotificationService,
+    private modal: NzModalService) {
     //Social Icon
     this.matIconRegistry.addSvgIcon("Google-logo",
       this.domSanitizer.bypassSecurityTrustResourceUrl(GOOGLELOGO));
@@ -62,16 +66,16 @@ export class GeneralHelperService {
 
     //Country icon
     this.matIconRegistry.addSvgIcon("CanadaIcon",
-    this.domSanitizer.bypassSecurityTrustResourceUrl(CanadaIcon));
+      this.domSanitizer.bypassSecurityTrustResourceUrl(CanadaIcon));
     this.matIconRegistry.addSvgIcon("FranceIcon",
       this.domSanitizer.bypassSecurityTrustResourceUrl(FranceIcon));
-      this.matIconRegistry.addSvgIcon("JapanIcon",
+    this.matIconRegistry.addSvgIcon("JapanIcon",
       this.domSanitizer.bypassSecurityTrustResourceUrl(JapanIcon));
-      this.matIconRegistry.addSvgIcon("SouthKoreaIcon",
+    this.matIconRegistry.addSvgIcon("SouthKoreaIcon",
       this.domSanitizer.bypassSecurityTrustResourceUrl(SouthKoreaIcon));
-      this.matIconRegistry.addSvgIcon("USAIcon",
+    this.matIconRegistry.addSvgIcon("USAIcon",
       this.domSanitizer.bypassSecurityTrustResourceUrl(USAIcon));
-      this.matIconRegistry.addSvgIcon("VietNamIcon",
+    this.matIconRegistry.addSvgIcon("VietNamIcon",
       this.domSanitizer.bypassSecurityTrustResourceUrl(VietNamIcon));
   }
 
@@ -91,6 +95,22 @@ export class GeneralHelperService {
   closeWaitingPopup() {
     //this.dialogWaitingPopupRef.getState().
     this.dialogWaitingPopupRef.close();
+  }
+
+  openWaitingPopupNz() {
+    this.modal.create({
+      nzContent: WaitingComponent,
+      nzFooter: null,
+      nzMaskClosable: false,
+      nzClosable: false,
+      nzWidth: 'fit-content',
+    });
+  }
+
+  closeWaitingPopupNz() {
+    // const ref: NzModalRef = this.modal.info();
+    // ref.destroy();
+    this.modal.closeAll();
   }
 
   hasErrorInputValidation(controlName: string, errorName: string, inputFormControl: FormGroup): boolean {
@@ -288,6 +308,53 @@ export class GeneralHelperService {
       data: data
     });
   }
+
+  createErrorNotification(error: any) {
+    if (error.status != undefined) {
+
+      if (error.status == 404) {
+        this.notification.create(
+          'error',
+          'Error code: ' + error.status,
+          error.statusText,
+          { nzPlacement: 'bottomRight' }
+        );
+      }
+      else if (error.status == 400) {
+        this.notification.create(
+          'error',
+          'Error cost: ' + error.status,
+          error.error.message,
+          { nzPlacement: 'bottomRight' }
+        );
+      }
+      else if (error.status == 0) {
+        this.notification.create(
+          'error',
+          'Error code: ' + error.status,
+          'Server Error!!',
+          { nzPlacement: 'bottomRight' }
+        );
+      }
+      else {
+        this.notification.create(
+          'error',
+          'Error code: ' + error.error.statusCode,
+          error.error.message,
+          { nzPlacement: 'bottomRight' }
+        );
+      }
+    } else {
+      this.notification.create(
+        'error',
+        'Error system',
+        error,
+        { nzPlacement: 'bottomRight' }
+      );
+    }
+
+  }
+
   handleErrorInput() {
     var data = { title: 'Error code: 400', message: 'Value input is error!!' };
     this.dialog.open(MessageComponent, {

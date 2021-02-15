@@ -1,6 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { GeneralHelperService } from 'src/app/services/general-helper.service';
 import { Cost, CostDetails } from 'src/app/sharings/models/cost-details';
 import { DateTime } from 'src/app/sharings/models/date-time';
@@ -19,12 +21,14 @@ export class ManageCostsComponent implements OnInit {
   titleComponent: string = 'Quản lý danh sách chi phí';
   isVisible = false;
   color: string = '100px';
-  totalCost!: number;
-  // inputFormControl: FormGroup;
   costList: Cost[] = [];
   page!: number;
   pageLimit!: number;
   checked = false;
+
+  totalRecord!: number;
+  pageSize = 4;
+  pageIndex = 1;
 
   tableLoading = false;
   detailLoading = false;
@@ -34,10 +38,16 @@ export class ManageCostsComponent implements OnInit {
 
   @Output() abccccdss = new EventEmitter();
 
+  sortOrderList?: number = 0;
+  sortFieldList?: string = 'create_at';
+  searchParam!: SearchCostRequest;
   searchCostRequest: SearchCostRequest = {
-    limit: 5,
+    limit: 4,
     page: 1,
+    sortField: "create_at",
+    sortOrder: 0,
     search: "",
+    costTypeIds: null as any
   };
 
   constructor(
@@ -48,6 +58,7 @@ export class ManageCostsComponent implements OnInit {
     public generalService: GeneralHelperService,
     private generalHelper: GeneralHelperService,
     private modal: NzModalService,
+    private notification: NzNotificationService,
   ) {
     // this.inputFormControl = this.formBuilder.group({
     //   description: [null, [Validators.maxLength(100)]]
@@ -56,27 +67,35 @@ export class ManageCostsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.searchCostList();
+    this.searchCostList(this.searchCostRequest);
 
   }
 
+  // createErrorNotification() {
+  //   this.notification.blank(
+  //     'Notification Title',
+  //     'I will never close automatically. I will be close automatically. I will never close automatically.',
+  //     { nzDuration: 1000 }
+  //   );
+  // }
 
   getCreateTime(time: DateTime) {
     return this.generalHelper.getToStringTime(time);
   }
 
-  searchCostList() {
+  searchCostList(searchParam: SearchCostRequest) {
     this.tableLoading = true;
     this.costList = null as any;
-    this.costService.searchCost(this.searchCostRequest).subscribe(
+    this.costService.searchCost(searchParam).subscribe(
       (response) => {
         this.tableLoading = false;
         this.getData(response.data);
-        //console.log(response.data);
+        console.log(response.data);
       },
       (error) => {
         this.tableLoading = false;
-        this.generalService.handleError(error);
+        console.log(error);
+        this.generalService.createErrorNotification(error);
       }
     );
 
@@ -84,39 +103,41 @@ export class ManageCostsComponent implements OnInit {
 
   getData(responseData: ResponseSearch) {
     //console.log(this.productList);
-    if (responseData.data.length == 0 && responseData.info.page > 1) {
-      this.searchCostRequest.page = this.searchCostRequest.page - 1;
-      this.searchCostList();
-      return;
-    }
+    // if (responseData.data.length == 0 && responseData.info.page > 1) {
+    //   this.searchCostRequest.page = this.searchCostRequest.page - 1;
+    //   this.searchCostList(this.searchParam);
+    //   return;
+    // }
     this.pageInfo.info = responseData.info;
     console.log("Info: " + this.pageInfo.info.limit);
     console.log("pageInfo: " + this.pageInfo);
     this.page = this.pageInfo.info.page;
     this.pageLimit = this.pageInfo.info.limit;
+    this.totalRecord = this.pageInfo.info.totalRecord;
     this.costList = responseData.data;
-    //console.log(this.productList);
-    // this.pageInfo.numberOfPage = Math.ceil(this.pageInfo.info.totalRecord / this.pageInfo.info.limit);
-    // if (this.pageInfo.info.page == 1) {
-    //   this.pageInfo.isFirstPage = true;
-    // } else {
-    //   this.pageInfo.isFirstPage = false;
-    // }
-    // if (this.pageInfo.info.page == this.pageInfo.numberOfPage) {
-    //   this.pageInfo.isLastPage = true;
-    // } else {
-    //   this.pageInfo.isLastPage = false;
-    // }
   }
 
-  // addNewCost(data) {
-  //   this.isOkLoading = true;
-  //   this.costService.storeNewCost(data).subscribe(
-  //     (response) => {
-
-  //     }
-  //   )
-  // } 
+  onQueryParamsChange(params: NzTableQueryParams): void {
+    console.log("params -- " + params);
+    const { pageSize, pageIndex, sort, filter } = params;
+    const currentSort = sort.find(item => item.value !== null);
+    const sortField = (currentSort && currentSort.key) || null;
+    const sortOrder = (currentSort && currentSort.value) || null;
+    console.log("sortField -- " + sortField);
+    console.log("pageIndex -- " + pageIndex);
+    sortOrder === 'ascend' || null ? this.sortOrderList = 0 : this.sortOrderList = 1;
+    sortField == null ? this.sortFieldList = 'create_at' : this.sortFieldList = sortField;
+    this.searchParam = {
+      limit: pageSize,
+      page: pageIndex,
+      sortField: this.sortFieldList,
+      sortOrder: this.sortOrderList,
+      search: "",
+      costTypeIds: null as any
+    };
+    console.log("searchParam (limit,page,search,sortField,sortOrder) -- " + this.searchParam.limit + this.searchParam.page + this.searchParam.search + this.searchParam.sortField + this.searchParam.sortOrder);
+    this.searchCostList(this.searchParam);
+  }
 
   showModalCostDetail(cost: any) {
     this.checked = true;
@@ -138,12 +159,17 @@ export class ManageCostsComponent implements OnInit {
         });
         this.modal.afterAllClose.subscribe(() => {
           if (this.checked == true) {
-            this.searchCostList();
+            this.searchCostList(this.searchParam);
           } else {
             console.log('cc');
           }
         });
-      })
+      },
+      (error) => {
+        console.log(error);
+        this.generalService.createErrorNotification(error);
+      }
+    )
   }
 
   showModalCostAdd(cost: any) {
@@ -166,7 +192,7 @@ export class ManageCostsComponent implements OnInit {
     });
     this.modal.afterAllClose.subscribe(() => {
       if (this.checked == true) {
-        this.searchCostList();
+        this.searchCostList(this.searchParam);
       } else {
         console.log('cc');
       }
@@ -175,20 +201,26 @@ export class ManageCostsComponent implements OnInit {
   }
 
   deleteCost(id: string, description: string) {
+    console.log("cost id -- " + id);
     this.confirmModal = this.modal.confirm({
       nzTitle: '<i>Do you Want to delete this item?</i>',
       nzContent: '<b>' + description + '</b>',
       nzOnOk: () => {
         this.tableLoading = true;
-        this.costService.deleteCost(id).subscribe(
+        this.costService.deleteCost("123").subscribe(
           (response) => {
             this.tableLoading = false;
             this.modal.success({
               nzContent: 'Xóa chi phí thành công',
               nzOnOk: () => console.log('ok'),
             });
-            this.searchCostList();
+            this.searchCostList(this.searchParam);
             console.log(response.message);
+          },
+          (error) => {
+            this.tableLoading = false;
+            console.log(error);
+            this.generalService.createErrorNotification(error);
           }
         )
       }
@@ -199,4 +231,20 @@ export class ManageCostsComponent implements OnInit {
   confirmAdd() {
     this.checked = false;
   }
+
+  // onInput($event: { target: any; }) {
+  //   if (!$event) {
+  //     return;
+  //   }
+  //   const target = $event.target;
+  //   console.log(target)
+  //   const regexp = /^(\d)+$/;
+  //   if (regexp.test(target.value)) {
+  //     target.value = target.value.replace(regexp, '');
+  //     console.log("a hi hi");
+  //   }
+  //   console.log(target.value)
+  // }
+
+  
 }

@@ -229,6 +229,10 @@ export class SummaryService {
     return this.http.post<ResponseServer>(UrlServerAPICost, data, { headers: this.headers });
   }
 
+  public storeNewCostType(data: any): Observable<ResponseServer> {
+    return this.http.post<ResponseServer>(UrlServerAPICostType, data, { headers: this.headers });
+  }
+
   public updateCost(data: any, id: string): Observable<ResponseServer> {
     // const headers = { 'Authorization': 'Bearer my-token' };
     return this.http.put<ResponseServer>(UrlServerAPICost + '/' + id, data, { headers: this.headers });
@@ -254,7 +258,7 @@ export class SummaryService {
   }
 
   public searchCostType(data: any): Observable<ResponseServer> {
-    const headers = { 'Authorization': 'Bearer my-token' };
+    // const headers = { 'Authorization': 'Bearer my-token' };
     return this.http.post<ResponseServer>(UrlServerAPISearchCostType, data, { headers: this.headers });
   }
 

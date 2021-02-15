@@ -3,16 +3,15 @@
  -->
 <!-- ============================================================== -->
 <div class="splash-container">
-  <mat-card class="card ">
-    <div class="card-header text-center"><img class="logo-img" style="width: 250px;height: 230px;" src="{{appLogoURL}}"
-        alt="logo">
-      <span class="splash-description">Please login to continue
+    <mat-card class="card ">
+        <div class="card-header text-center"><img class="logo-img" style="width: 250px;height: 230px;" src="{{appLogoURL}}" alt="logo">
+            <span class="splash-description">Please login to continue
       </span>
-    </div>
-    <mat-card-content class="card-body">
-      <form>
-        <!--
-<div class="form-group">
+        </div>
+        <mat-card-content class="card-body">
+            <form>
+                <!--
+                <div class="form-group">
                     <input class="form-control form-control-lg" id="username" type="text" placeholder="Username"
                         autocomplete="off">
                 </div>
@@ -21,21 +20,19 @@
                 </div>
                 -->
 
-        <button (click)="authService.signInWithGoogle()" mat-raised-button style="padding: 6px;"
-          class="btn-lg btn-block">
-          <mat-icon style="width: 50px; height:35px;" svgIcon="Google-logo"></mat-icon>
-          Sign in with Google
-        </button>
+                <button (click)="authService.loginWithGmail()" mat-raised-button style="padding: 6px;" class="btn-lg btn-block">
+                    <mat-icon style="width: 50px; height:35px;" svgIcon="Google-logo"></mat-icon>
+                    Sign in with Google
+                </button>
 
-        <button (click)="authService.signInWithFacebook()" mat-raised-button style="padding: 6px;"
-          class="btn-lg btn-block">
-          <mat-icon style="width: 50px; height:35px" svgIcon="Facebook-logo"></mat-icon>
-          Sign in with Facebook
-        </button>
-      </form>
-    </mat-card-content>
-    <!--
-<div class="card-footer bg-white p-0  ">
+                <button (click)="authService.loginWithFacebook()" mat-raised-button style="padding: 6px;" class="btn-lg btn-block">
+                    <mat-icon style="width: 50px; height:35px" svgIcon="Facebook-logo"></mat-icon>
+                    Sign in with Facebook
+                </button>
+            </form>
+        </mat-card-content>
+        <!--
+        <div class="card-footer bg-white p-0  ">
             <div class="card-footer-item card-footer-item-bordered">
                 <a href="#" class="footer-link">Create An Account</a></div>
             <div class="card-footer-item card-footer-item-bordered">
@@ -44,7 +41,10 @@
         </div>
         -->
 
-  </mat-card>
+    </mat-card>
+    <button nz-button nzType="primary" nzBlock nzSize="large" (click)="ahihi()">
+        <span>Add Cost</span>
+    </button>
 </div>
 
 

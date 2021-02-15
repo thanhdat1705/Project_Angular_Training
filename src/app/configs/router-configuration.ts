@@ -7,6 +7,7 @@ import { MainActionComponent } from '../pages/main-action/main-action.component'
 import { CategoryComponent } from '../pages/main-action/category/category.component';
 import { ManageCostsComponent } from '../pages/main-action/manage-costs/manage-costs.component';
 import { ProductManagerComponent } from '../pages/main-action/product-manager/product-manager.component';
+import { CostTypeListManageComponent } from '../pages/main-action/cost-type-list-manage/cost-type-list-manage.component';
 
 
 export const ROUTER = RouterModule.forRoot([
@@ -66,7 +67,7 @@ export const ROUTER = RouterModule.forRoot([
           },
           {
             path: 'cost-type-list',
-            component: ErrorNotFoundComponent,
+            component: CostTypeListManageComponent,
             data: {
               breadcrumb: 'Cost Type list'
             }

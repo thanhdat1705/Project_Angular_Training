@@ -36,26 +36,57 @@
         <div>
             <div>
                 <nz-form-item>
-                    <nz-form-control nzErrorTip="Input maximum 100 character">
-                        <textarea rows="4" formControlName="CostDescription" nz-input placeholder="Cost Description" nzAutosize required></textarea>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="description">Mô tả</nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorCostDescription">
+                        <textarea rows="4" formControlName="CostDescription" nz-input nzAutosize nzRequired></textarea>
+                        <ng-template #errorCostDescription let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                Mô tả <strong>không được trống</strong>
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('min')">
+                                Mô tả <strong>không được quá 100 ký tự</strong>
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
             </div>
             <div>
                 <nz-form-item class="totalCost">
-                    <nz-form-control nzErrorTip="Number and greater than 1000">
-                        <nz-input-number formControlName="Total" nzSize="large" nzPlaceHolder="Total cost" required>dasads</nz-input-number>
+                    <nz-form-label [nzSm]="15" [nzXs]="24" nzRequired nzFor="total">Tổng cộng</nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorTotal">
+                        <!-- <nz-input-number formControlName="Total" nzSize="large" required></nz-input-number> -->
+                        <input nz-input type="number" formControlName="Total" nzSize="large" nzRequired />
+                        <ng-template #errorTotal let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                Tổng cộng <strong>không được trống</strong>
+                            </ng-container>
+                            <ng-container *ngIf="control.hasError('min')">
+                                Tổng cộng <strong>không được nhỏ hơn 1000</strong>
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item class="costType">
-                    <nz-form-control>
-                        <nz-select nzShowSearch nzAllowClear formControlName="CostTypeId" nzPlaceHolder="Select a person" nzSize="large" required>
+                    <nz-form-label [nzSm]="15" [nzXs]="24" nzRequired nzFor="costType">Loại chi phí</nz-form-label>
+                    <nz-form-control [nzErrorTip]="errorCostTypes">
+                        <nz-select nzShowSearch nzAllowClear formControlName="CostTypeId" nzSize="large" required>
                             <nz-option *ngFor="let costType of costTypes" nzLabel="{{ costType.costTypeName }}" nzValue="{{ costType.id }}"></nz-option>
                         </nz-select>
+                        <ng-template #errorCostTypes let-control>
+                            <ng-container *ngIf="control.hasError('required')">
+                                Loại chi phí <strong>không được trống</strong>
+                            </ng-container>
+                        </ng-template>
                     </nz-form-control>
                 </nz-form-item>
             </div>
         </div>
-        <button nz-button nzType="primary" [nzLoading]="isOkLoading" nzBlock>Add New Cost</button>
+        <nz-form-control [nzXs]="{ span: 4, offset: 0 }">
+            <button nz-button nzType="primary" [nzLoading]="isOkLoading" nzBlock>Add New Cost</button>
+        </nz-form-control>
+        <!-- <button nz-button nzType="primary" [nzLoading]="isOkLoading" nzBlock>Add New Cost</button> -->
+        <!-- <input #inputElement style="width: 120px " nz-input nz-tooltip nzTooltipTrigger="focus " nzTooltipPlacement="topLeft " nzOverlayClassName="numeric-input " [ngModel]="value " placeholder="Input a number " (ngModelChange)="onChange($event)
+                            " (blur)="onBlur() "
+        /> -->
     </form>
 </ng-template>

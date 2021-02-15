@@ -13,6 +13,8 @@ import { ManageCostsComponent } from '../pages/main-action/manage-costs/manage-c
 import { ModalContentCostComponent } from '../pages/main-action/manage-costs/modal-content-cost/modal-content-cost.component';
 import { ProductManagerComponent } from '../pages/main-action/product-manager/product-manager.component';
 import { ProductDetailComponent } from '../pages/main-action/product-manager/product-detail/product-detail.component';
+import { CostTypeListManageComponent } from '../pages/main-action/cost-type-list-manage/cost-type-list-manage.component';
+import { ModalContentCostTypeComponent } from '../pages/main-action/cost-type-list-manage/modal-content-cost-type/modal-content-cost-type.component';
 
 
 export const DECLARATIONS = [
@@ -30,5 +32,7 @@ export const DECLARATIONS = [
   ManageCostsComponent,
   ModalContentCostComponent,
   ProductManagerComponent,
-  ProductDetailComponent
+  ProductDetailComponent,
+  CostTypeListManageComponent,
+  ModalContentCostTypeComponent,
 ];

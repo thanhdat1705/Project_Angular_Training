@@ -1,32 +1,30 @@
-<nz-table #rowSelectionTable nzShowQuickJumper [nzLoading]="loading" [nzData]="listProduct" [nzFrontPagination]="false"
-  [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex"
-  (nzQueryParams)="onQueryParamsChange($event)">
-  <thead>
-    <tr>
-      <!-- <th [nzSelections]="listProduct" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate"></th> -->
-      <th>NO.</th>
-      <th nzColumnKey="product_name" [nzSortFn]="true">Tên sản phẩm</th>
-      <th nzColumnKey="description" [nzSortFn]="true">Mô tả</th>
-      <th nzColumnKey="quantity_in_stock" [nzSortFn]="true">Tồn kho</th>
-      <th nzColumnKey="unit" [nzSortFn]="true">Đơn vị tính</th>
-      <th nzColumnKey="unit_price" [nzSortFn]="true">Đơn giá bán</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let prod of listProduct;index as i">
-      <td>{{ i+(page*pageLimit)-(pageLimit-1) }}</td>
-      <td>{{prod.productName }}</td>
-      <td>{{ prod.description }}</td>
-      <td>{{ prod.quantityInStock }} </td>
-      <td>{{ prod.unit }}</td>
-      <td>{{ prod.unitPrice | currency:"VND" }}</td>
-      <td> <button nz-button (click)="showDetail(prod.id)">Chi tiết</button> </td>
-      <td> <a nz-button nzType="default" nzShape="circle" (click)="showConfirmDelete(prod)">Delete</a></td>
-    </tr>
-  </tbody>
-  <button nz-button nzType="primary" (click)="showAddProduct(null)">
+<nz-table #rowSelectionTable nzShowQuickJumper [nzLoading]="loading" [nzData]="listProduct" [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+    <thead>
+        <tr>
+            <!-- <th [nzSelections]="listProduct" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate"></th> -->
+            <th>NO.</th>
+            <th nzColumnKey="product_name" [nzSortFn]="true">Tên sản phẩm</th>
+            <th nzColumnKey="description" [nzSortFn]="true">Mô tả</th>
+            <th nzColumnKey="quantity_in_stock" [nzSortFn]="true">Tồn kho</th>
+            <th nzColumnKey="unit" [nzSortFn]="true">Đơn vị tính</th>
+            <th nzColumnKey="unit_price" [nzSortFn]="true">Đơn giá bán</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prod of listProduct;index as i">
+            <td>{{ i+(page*pageLimit)-(pageLimit-1) }}</td>
+            <td>{{prod.productName }}</td>
+            <td>{{ prod.description }}</td>
+            <td>{{ prod.quantityInStock }} </td>
+            <td>{{ prod.unit }}</td>
+            <td>{{ prod.unitPrice | currency:"VND" }}</td>
+            <td> <button nz-button (click)="showDetail(prod.id)">Chi tiết</button> </td>
+            <td> <a nz-button nzType="default" nzShape="circle" (click)="showConfirmDelete(prod)">Delete</a></td>
+        </tr>
+    </tbody>
+    <button nz-button nzType="primary" (click)="showAddProduct(null)">
     <span>Thêm sản phẩm</span>
   </button>
 </nz-table>

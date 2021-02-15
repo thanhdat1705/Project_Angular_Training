@@ -41,8 +41,13 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-
+import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { AngularFireModule } from '@angular/fire';
+import firebase from 'firebase';
+import { firebaseConfig } from 'src/environments/environment';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 export const IMPORTS = [
   BrowserModule,
   HttpClientModule,
@@ -86,6 +91,13 @@ export const IMPORTS = [
   NzIconModule,
   NzPopconfirmModule,
   NzSpinModule,
+  NzAlertModule,
+  NzNotificationModule,
+  AngularFireModule.initializeApp(firebaseConfig),
+  AngularFireAuthModule,
+  // firebase.initializeApp(firebaseConfig),
   ROUTER,
+  
+  
 ];
 

@@ -1,9 +1,5 @@
-nz-input-number {
+input {
     width: 180px;
-}
-
-nz-select {
-    margin-left: 20px;
 }
 
 .totalCost {
@@ -11,5 +7,15 @@ nz-select {
 }
 
 .costType {
+    margin-left: 30%;
     width: 30%;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }

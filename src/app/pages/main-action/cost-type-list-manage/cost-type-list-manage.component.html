@@ -1,0 +1,25 @@
+<nz-spin [nzSpinning]="detailLoading" nzTip="Loading...">
+    <nz-table #costTypeTable nzShowQuickJumper [nzFrontPagination]="false" [nzData]="costTypeList" [nzLoading]="tableLoading" [nzTotal]="totalRecord" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th nzColumnKey="costTypeName" [nzSortFn]="true">Name</th>
+                <!-- <th></th> -->
+                <!-- <th></th> -->
+            </tr>
+        </thead>
+        <tbody *ngIf="costTypeList!=null">
+            <tr *ngFor="let costType of costTypeList; index as i">
+                <td>{{ i+(page*pageLimit)-(pageLimit-1) }}</td>
+                <td>{{ costType.costTypeName }}</td>
+                <!-- <td><button nz-button nzType="default" nzSize="large" nzShape="round" (click)="showModalCostDetail(cost)">Detail</button></td> -->
+                <!-- <td> <a nz-button nzType="default" nzShape="circle" (click)="deleteCostType(costType.id, costType.costTypeName)">Delete</a></td> -->
+            </tr>
+        </tbody>
+        <div style="margin: 10px; width: 200px;">
+            <button nz-button nzType="primary" nzBlock nzSize="large" (click)="showModalCostTypeAdd()">
+                    <span>Add Cost Type</span>
+                </button>
+        </div>
+    </nz-table>
+</nz-spin>

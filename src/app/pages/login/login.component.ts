@@ -11,6 +11,7 @@ import { SocialUser, GoogleLoginProvider, SocialAuthService } from 'angularx-soc
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,8 +22,8 @@ export class LoginComponent implements OnInit {
   appLogoURL = APPLOGO;
   // googleLogoURL =GOOGLELOGO;
   // facebookLogoURL = FACEBOOKLOGO;
-
-  user!: SocialUser;
+  // provider: any;
+  // user: any;
 
   ngOnInit(): void {
     // this.socialAuthService.authState.subscribe((user) => {
@@ -31,6 +32,12 @@ export class LoginComponent implements OnInit {
     //   console.log(this.user);
     // });
     this.socialAuthService.initState.toPromise().then();
+    console.log(this.socialAuthService.initState);
+    // var provider = new firebase.auth.GoogleAuthProvider();
+    // this.provider = provider;
+    // firebase.auth().onAuthStateChanged(user => {
+    //   this.user = user;
+    // });
   }
 
   constructor(private dialog: MatDialog, private router: Router, public authService: AuthService,
@@ -43,5 +50,14 @@ export class LoginComponent implements OnInit {
     // this.matIconRegistry.addSvgIcon("Facebook-logo",this.domSanitizer.bypassSecurityTrustResourceUrl(this.facebookLogoURL));
 
   };
-
+  ahihi() {
+    this.generalService.openWaitingPopupNz();
+    console.log("loading.........");
+    setTimeout(
+      () => {
+        this.generalService.closeWaitingPopupNz();
+      },
+      1000
+    );
+  }
 }
